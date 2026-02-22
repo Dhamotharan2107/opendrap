@@ -1,8 +1,4 @@
 
-  # Design OPENDRAP SaaS Website
-
-  This is a code bundle for Design OPENDRAP SaaS Website. The original project is available at https://www.figma.com/design/fctttk1QBydcDasUMdVGFb/Design-OPENDRAP-SaaS-Website.
-
   ## Running the code
 
   Run `npm i` to install the dependencies.
