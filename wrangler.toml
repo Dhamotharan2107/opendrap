@@ -1,0 +1,9 @@
+name = "opendrap"
+compatibility_flags = ["nodejs_compat"]
+compatibility_date = "2024-01-01"
+pages_build_output_dir = "dist"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "opendrap-db"
+database_id = "d61208b1-f648-4623-b581-e3d292972edf"
