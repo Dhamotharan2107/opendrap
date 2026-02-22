@@ -1,7 +1,17 @@
-
   import { createRoot } from "react-dom/client";
+  import { HelmetProvider } from 'react-helmet-async';
   import App from "./app/App.tsx";
   import "./styles/index.css";
+  import "./styles/components.css";
 
-  createRoot(document.getElementById("root")!).render(<App />);
+  const rootElement = document.getElementById("root");
+  if (!rootElement) {
+    throw new Error('Root element not found');
+  }
+
+  createRoot(rootElement).render(
+    <HelmetProvider>
+      <App />
+    </HelmetProvider>
+  );
   
