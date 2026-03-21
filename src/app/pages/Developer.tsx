@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../co
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../components/ui/table";
+import { authService } from "../../services/auth";
 
 type ContactSubmission = {
   id: number;
@@ -17,14 +18,12 @@ type ContactSubmission = {
   createdAt: string;
 };
 
-const VALID_USERNAME = "developer@opendrap.ai";
-const VALID_PASSWORD = "Qwerty@123";
-
 export function Developer() {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(!!authService.getToken());
   const [authError, setAuthError] = useState<string | null>(null);
+  const [authLoading, setAuthLoading] = useState(false);
 
   const [data, setData] = useState<ContactSubmission[]>([]);
   const [loading, setLoading] = useState(false);
@@ -33,19 +32,15 @@ export function Developer() {
   const loadSubmissions = async () => {
     setLoading(true);
     setError(null);
-
     try {
-      const response = await fetch("/api/contact");
-      const payload = (await response.json()) as {
-        ok?: boolean;
-        data?: ContactSubmission[];
-        error?: string;
-      };
-
-      if (!response.ok || !payload.ok) {
-        throw new Error(payload.error || "Failed to load submissions");
+      const res = await fetch("/api/contact", { headers: authService.authHeaders() });
+      if (res.status === 401) {
+        authService.logout();
+        setIsAuthenticated(false);
+        return;
       }
-
+      const payload = await res.json() as { ok?: boolean; data?: ContactSubmission[]; error?: string };
+      if (!res.ok || !payload.ok) throw new Error(payload.error || "Failed to load submissions");
       setData(payload.data || []);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong");
@@ -55,21 +50,26 @@ export function Developer() {
   };
 
   useEffect(() => {
-    if (isAuthenticated) {
-      loadSubmissions();
-    }
+    if (isAuthenticated) loadSubmissions();
   }, [isAuthenticated]);
 
-  const handleLogin = (e: FormEvent) => {
+  const handleLogin = async (e: FormEvent) => {
     e.preventDefault();
     setAuthError(null);
-
-    if (username === VALID_USERNAME && password === VALID_PASSWORD) {
+    setAuthLoading(true);
+    const result = await authService.login(email, password);
+    setAuthLoading(false);
+    if (result.ok) {
       setIsAuthenticated(true);
-      return;
+    } else {
+      setAuthError(result.error || "Invalid email or password.");
     }
+  };
 
-    setAuthError("Invalid username or password.");
+  const handleLogout = () => {
+    authService.logout();
+    setIsAuthenticated(false);
+    setData([]);
   };
 
   if (!isAuthenticated) {
@@ -84,13 +84,13 @@ export function Developer() {
             <CardContent>
               <form onSubmit={handleLogin} className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="developer-username">Username</Label>
+                  <Label htmlFor="developer-email">Email</Label>
                   <Input
-                    id="developer-username"
+                    id="developer-email"
                     type="email"
                     placeholder="developer@opendrap.ai"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     required
                   />
                 </div>
@@ -106,8 +106,8 @@ export function Developer() {
                   />
                 </div>
                 {authError && <p className="text-sm text-red-600">{authError}</p>}
-                <Button type="submit" className="w-full bg-[#002E6E] hover:bg-[#001f4d]">
-                  Login
+                <Button type="submit" className="w-full bg-[#002E6E] hover:bg-[#001f4d]" disabled={authLoading}>
+                  {authLoading ? "Signing in..." : "Login"}
                 </Button>
               </form>
             </CardContent>
@@ -126,9 +126,14 @@ export function Developer() {
               <CardTitle className="text-2xl">Developer Contact Submissions</CardTitle>
               <CardDescription>All contact form data saved in TiDB.</CardDescription>
             </div>
-            <Button onClick={loadSubmissions} disabled={loading} className="bg-[#002E6E] hover:bg-[#001f4d]">
-              {loading ? "Loading..." : "Refresh"}
-            </Button>
+            <div className="flex gap-2">
+              <Button onClick={loadSubmissions} disabled={loading} className="bg-[#002E6E] hover:bg-[#001f4d]">
+                {loading ? "Loading..." : "Refresh"}
+              </Button>
+              <Button onClick={handleLogout} variant="outline">
+                Logout
+              </Button>
+            </div>
           </CardHeader>
           <CardContent>
             {error && <p className="text-sm text-red-600 mb-4">{error}</p>}

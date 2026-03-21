@@ -7,6 +7,7 @@ export const API_ENDPOINTS = {
 export const NAV_LINKS = [
   { name: 'Home', path: '/' },
   { name: 'Products', path: '/products' },
+  { name: 'Pricing', path: '/pricing' },
   { name: 'Contact', path: '/contact' },
 ] as const;
 

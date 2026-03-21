@@ -65,7 +65,7 @@ export const generateProductSchema = (product: {
   offers: product.price ? {
     '@type': 'Offer',
     price: product.price,
-    priceCurrency: 'USD',
+    priceCurrency: 'INR',
   } : undefined,
 });
 
@@ -77,6 +77,40 @@ export const generateBreadcrumbSchema = (items: Array<{ name: string; url: strin
     position: index + 1,
     name: item.name,
     item: item.url,
+  })),
+});
+
+export const generateServiceSchema = (service: { name: string; description: string; price?: string }) => ({
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: service.name,
+  description: service.description,
+  provider: {
+    '@type': 'Organization',
+    name: COMPANY_INFO.name,
+    url: COMPANY_INFO.url,
+  },
+  areaServed: 'IN',
+  offers: service.price ? {
+    '@type': 'Offer',
+    price: service.price,
+    priceCurrency: 'INR',
+    priceSpecification: {
+      '@type': 'UnitPriceSpecification',
+      price: service.price,
+      priceCurrency: 'INR',
+      unitText: 'MONTH',
+    },
+  } : undefined,
+});
+
+export const generateFAQSchema = (faqs: Array<{ q: string; a: string }>) => ({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.q,
+    acceptedAnswer: { '@type': 'Answer', text: faq.a },
   })),
 });
 

@@ -1,376 +1,380 @@
 import { Link } from "react-router";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "../components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/ui/tabs";
 import { Badge } from "../components/ui/badge";
-import { 
-  MessageSquare, 
-  Phone, 
-  Globe, 
-  Smartphone, 
-  Bot, 
-  Zap,
-  CheckCircle2,
-  ArrowRight,
-  BarChart3,
-  Shield,
-  Headphones,
-  Clock
+import {
+  MessageSquare, Phone, Globe, Smartphone, Bot, Zap,
+  CheckCircle2, ArrowRight, BarChart3, Shield, Headphones,
+  Clock, Code2, Wrench, Gift, XCircle, Award
 } from "lucide-react";
-import { ImageWithFallback } from "../components/figma/ImageWithFallback";
+
+function useInView(threshold = 0.15) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [inView, setInView] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setInView(true); obs.disconnect(); } }, { threshold });
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [threshold]);
+  return { ref, inView };
+}
+
+function AnimatedSection({ children, className = "", delay = "" }: { children: React.ReactNode; className?: string; delay?: string }) {
+  const { ref, inView } = useInView();
+  return (
+    <div ref={ref} className={`${className} opacity-0-init ${inView ? `animate-fade-in-up ${delay}` : ""}`}>
+      {children}
+    </div>
+  );
+}
 
 export function Home() {
+  const heroRef = useRef<HTMLDivElement>(null);
+  const [heroVisible, setHeroVisible] = useState(false);
+
+  useEffect(() => {
+    const t = setTimeout(() => setHeroVisible(true), 100);
+    return () => clearTimeout(t);
+  }, []);
+
   const features = [
-    {
-      icon: MessageSquare,
-      title: "AI WhatsApp Agent",
-      description: "Automate customer conversations on WhatsApp with intelligent AI agents that handle queries 24/7.",
-    },
-    {
-      icon: Phone,
-      title: "AI Voice Calling Agent",
-      description: "Smart voice AI that makes and receives calls, schedules appointments, and qualifies leads automatically.",
-    },
-    {
-      icon: Globe,
-      title: "Website Development",
-      description: "Modern, responsive websites built with cutting-edge technology to establish your online presence.",
-    },
-    {
-      icon: Smartphone,
-      title: "Mobile App Development",
-      description: "Native and cross-platform mobile applications that deliver exceptional user experiences.",
-    },
-    {
-      icon: Bot,
-      title: "AI Chatbot Platform",
-      description: "Deploy intelligent chatbots across multiple channels to engage customers and drive conversions.",
-    },
-    {
-      icon: Zap,
-      title: "Business Automation",
-      description: "Streamline operations with custom automation workflows that save time and reduce costs.",
-    },
+    { icon: MessageSquare, title: "AI WhatsApp Agent", description: "Automate customer conversations on WhatsApp with intelligent AI agents that handle queries 24/7." },
+    { icon: Phone, title: "AI Voice Calling Agent", description: "Smart voice AI that makes and receives calls, schedules appointments, and qualifies leads automatically." },
+    { icon: Globe, title: "Website Development", description: "Modern, responsive websites built with cutting-edge technology to establish your online presence." },
+    { icon: Smartphone, title: "Mobile App Development", description: "Native and cross-platform mobile applications that deliver exceptional user experiences." },
+    { icon: Bot, title: "AI Chatbot Platform", description: "Deploy intelligent chatbots across multiple channels to engage customers and drive conversions." },
+    { icon: Zap, title: "Business Automation", description: "Streamline operations with custom automation workflows that save time and reduce costs." },
   ];
 
-  const whyChooseUs = [
-    {
-      icon: BarChart3,
-      title: "Proven Results",
-      description: "Average 40% increase in customer engagement within the first 3 months.",
-    },
-    {
-      icon: Shield,
-      title: "Enterprise Security",
-      description: "Bank-grade encryption and compliance with international security standards.",
-    },
-    {
-      icon: Headphones,
-      title: "24/7 Support",
-      description: "Dedicated support team available around the clock to assist you.",
-    },
-    {
-      icon: Clock,
-      title: "Quick Deployment",
-      description: "Get up and running in days, not months, with our streamlined onboarding.",
-    },
+  const trialSteps = [
+    { icon: Gift, title: "Day 1 — We Audit Your Site", description: "Our developers do a full technical audit of your existing website — bugs, performance, SEO, security." },
+    { icon: Wrench, title: "Days 2–6 — We Fix Critical Issues", description: "We fix the most impactful bugs and improvements. You see real results, zero risk." },
+    { icon: CheckCircle2, title: "Day 7 — Your Decision", description: "Love the work? Continue at ₹8,999/month. Not satisfied? Cancel with zero charges. No questions asked." },
+  ];
+
+  const whyUs = [
+    { icon: BarChart3, title: "Proven Results", description: "Average 40% increase in customer engagement within the first 3 months." },
+    { icon: Shield, title: "Enterprise Security", description: "Bank-grade encryption and compliance with international security standards." },
+    { icon: Headphones, title: "24/7 Support", description: "Dedicated support team available around the clock to assist you." },
+    { icon: Clock, title: "Quick Deployment", description: "Get up and running in days, not months, with our streamlined onboarding." },
   ];
 
   return (
-    <div className="bg-white">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-purple-50 pt-16 pb-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <Badge className="mb-4 bg-[#00B9F1]/20 text-[#002E6E] hover:bg-[#00B9F1]/20">
-                🚀 AI-Powered Solutions
-              </Badge>
-              <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-                Open Dynamic Research and AI Platform
+    <div className="bg-white overflow-x-hidden">
+
+      {/* ── HERO ── */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-[#001a3d] via-[#002E6E] to-[#004fa3] min-h-[92vh] flex items-center">
+        {/* Animated background blobs */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-20 left-10 w-72 h-72 bg-[#00B9F1]/20 rounded-full blur-3xl animate-float" />
+          <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#002E6E]/40 rounded-full blur-3xl animate-float delay-300" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#00B9F1]/5 rounded-full blur-3xl" />
+        </div>
+
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 w-full">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div ref={heroRef}>
+              <div className={`opacity-0-init ${heroVisible ? "animate-fade-in-up" : ""}`}>
+                <Badge className="mb-5 bg-[#00B9F1]/20 text-[#00B9F1] border border-[#00B9F1]/30 text-sm px-4 py-1.5">
+                  <Code2 className="h-3.5 w-3.5 mr-2 inline" />
+                  We Are the Developers — We Fix Your Issues
+                </Badge>
+              </div>
+              <h1 className={`text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-tight opacity-0-init ${heroVisible ? "animate-fade-in-up delay-100" : ""}`}>
+                Your Website,{" "}
+                <span className="animate-shimmer">Perfected</span>
+                <br />by Expert Developers
               </h1>
-              <p className="text-xl text-gray-600 mb-8">
-                Automate customer interactions, streamline operations, and scale your business with intelligent AI solutions built by a team of passionate developers.
+              <p className={`text-xl text-white/70 mb-8 max-w-lg opacity-0-init ${heroVisible ? "animate-fade-in-up delay-200" : ""}`}>
+                We audit, fix, and maintain your existing website. Start with a{" "}
+                <span className="text-[#00B9F1] font-semibold">7-day free trial</span> — no credit card, no commitment. Cancel anytime.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-<Button size="lg" className="bg-[#002E6E] hover:bg-[#001f4d] text-lg px-8" asChild>
+              <div className={`flex flex-col sm:flex-row gap-4 opacity-0-init ${heroVisible ? "animate-fade-in-up delay-300" : ""}`}>
+                <Button size="lg" className="bg-[#00B9F1] hover:bg-[#009fd4] text-white text-lg px-8 animate-pulse-glow" asChild>
                   <Link to="/contact">
-                    Get Started
+                    Start Free 7-Day Trial
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
                 </Button>
-                <Button size="lg" variant="outline" className="text-lg px-8" asChild>
-                  <Link to="/products">Explore Products</Link>
-                </Button>
+                <Link
+                  to="/pricing"
+                  className="inline-flex items-center justify-center px-8 py-3 rounded-lg text-lg font-semibold text-white border-2 border-white/60 hover:bg-white/15 hover:border-white transition-all duration-200"
+                >
+                  View Pricing
+                </Link>
               </div>
-              <div className="mt-8 flex items-center space-x-6 text-sm text-gray-600">
-                <div className="flex items-center">
-                  <CheckCircle2 className="h-5 w-5 text-[#00B9F1] mr-2" />
-                  Enterprise-ready solutions
-                </div>
-                <div className="flex items-center">
-                  <CheckCircle2 className="h-5 w-5 text-[#00B9F1] mr-2" />
-                  24/7 support available
-                </div>
+              <div className={`mt-8 flex flex-wrap gap-5 text-sm text-white/60 opacity-0-init ${heroVisible ? "animate-fade-in-up delay-400" : ""}`}>
+                {["No credit card required", "Cancel anytime", "Real developers, real fixes"].map((t) => (
+                  <div key={t} className="flex items-center gap-2">
+                    <CheckCircle2 className="h-4 w-4 text-[#00B9F1]" />
+                    {t}
+                  </div>
+                ))}
               </div>
             </div>
-            <div className="relative">
-              <div className="rounded-2xl shadow-2xl overflow-hidden border-4 border-white">
-                <ImageWithFallback
-                  src="https://images.unsplash.com/photo-1748609160056-7b95f30041f0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBkYXNoYm9hcmQlMjBhbmFseXRpY3N8ZW58MXx8fHwxNzcxNTczNzEzfDA&ixlib=rb-4.1.0&q=80&w=1080"
-                  alt="Modern Dashboard"
-                  className="w-full h-auto"
-                />
+
+            {/* Hero visual card */}
+            <div className={`opacity-0-init ${heroVisible ? "animate-fade-in-right delay-200" : ""}`}>
+              <div className="relative animate-float">
+                <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-8 shadow-2xl">
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="w-10 h-10 bg-gradient-to-br from-[#002E6E] to-[#00B9F1] rounded-xl flex items-center justify-center">
+                      <Code2 className="h-5 w-5 text-white" />
+                    </div>
+                    <div>
+                      <div className="text-white font-semibold">OPENDRAP Dev Team</div>
+                      <div className="text-white/50 text-xs">Active on your project</div>
+                    </div>
+                    <div className="ml-auto w-2.5 h-2.5 bg-green-400 rounded-full animate-pulse" />
+                  </div>
+                  <div className="space-y-3">
+                    {[
+                      { label: "Bug Audit", status: "Completed", color: "text-green-400" },
+                      { label: "Performance Fix", status: "In Progress", color: "text-[#00B9F1]" },
+                      { label: "SEO Optimization", status: "Queued", color: "text-yellow-400" },
+                      { label: "Security Patch", status: "Queued", color: "text-yellow-400" },
+                    ].map((item) => (
+                      <div key={item.label} className="flex items-center justify-between bg-white/5 rounded-xl px-4 py-3">
+                        <span className="text-white/80 text-sm">{item.label}</span>
+                        <span className={`text-xs font-medium ${item.color}`}>{item.status}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="mt-6 bg-[#00B9F1]/20 border border-[#00B9F1]/30 rounded-xl px-4 py-3 text-center">
+                    <span className="text-[#00B9F1] text-sm font-semibold">7-Day Free Trial Active 🎉</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-
-
-      {/* Key Features Section */}
+      {/* ── WHO WE ARE ── */}
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              Powerful Solutions for Modern Business
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <AnimatedSection>
+              <Badge className="mb-4 bg-[#002E6E]/10 text-[#002E6E]">
+                <Award className="h-3.5 w-3.5 mr-1 inline" /> About OPENDRAP
+              </Badge>
+              <h2 className="text-4xl font-bold text-gray-900 mb-6 leading-tight">
+                We Are the Developers.<br />
+                <span className="text-[#002E6E]">We Fix Your Issues.</span>
+              </h2>
+              <p className="text-lg text-gray-600 mb-6">
+                OPENDRAP is a team of passionate full-stack developers, AI engineers, and digital strategists based in Chennai, India. We don't just build — we maintain, optimize, and grow your digital presence.
+              </p>
+              <p className="text-lg text-gray-600 mb-8">
+                Whether your site has hidden bugs, slow load times, or security vulnerabilities — we find them and fix them. Our 7-day free trial lets you experience our work before committing to anything.
+              </p>
+              <div className="flex flex-wrap gap-3">
+                {["Full-Stack Development", "AI Integration", "Bug Fixing", "Performance Optimization", "SEO", "Security Audits"].map((tag) => (
+                  <span key={tag} className="bg-[#002E6E]/8 text-[#002E6E] text-sm px-3 py-1.5 rounded-full font-medium border border-[#002E6E]/15">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </AnimatedSection>
+            <AnimatedSection delay="delay-200">
+              <div className="grid grid-cols-2 gap-4">
+                {whyUs.map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <div key={item.title} className="bg-gradient-to-br from-gray-50 to-blue-50 border border-gray-100 rounded-2xl p-5 hover:shadow-md transition-shadow duration-300">
+                      <div className="w-10 h-10 bg-gradient-to-br from-[#002E6E] to-[#00B9F1] rounded-xl flex items-center justify-center mb-3">
+                        <Icon className="h-5 w-5 text-white" />
+                      </div>
+                      <h3 className="font-semibold text-gray-900 mb-1">{item.title}</h3>
+                      <p className="text-gray-500 text-sm">{item.description}</p>
+                    </div>
+                  );
+                })}
+              </div>
+            </AnimatedSection>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 7-DAY FREE TRIAL ── */}
+      <section className="py-24 bg-gradient-to-br from-[#001a3d] via-[#002E6E] to-[#004fa3] relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-0 right-0 w-80 h-80 bg-[#00B9F1]/10 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 left-0 w-80 h-80 bg-[#00B9F1]/10 rounded-full blur-3xl" />
+        </div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <AnimatedSection className="text-center mb-16">
+            <Badge className="mb-4 bg-[#00B9F1]/20 text-[#00B9F1] border border-[#00B9F1]/30 text-sm px-4 py-1.5">
+              🎁 Exclusive Offer for Existing Websites
+            </Badge>
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-5">
+              7-Day Free Trial — Zero Risk
             </h2>
+            <p className="text-xl text-white/70 max-w-2xl mx-auto">
+              Already have a website? Let us work on it for 7 days, completely free. We fix real bugs, improve performance, and show you what we can do. You decide after.
+            </p>
+          </AnimatedSection>
+
+          <div className="grid md:grid-cols-3 gap-6 mb-16">
+            {trialSteps.map((step, i) => {
+              const Icon = step.icon;
+              return (
+                <AnimatedSection key={step.title} delay={`delay-${(i + 1) * 100}`}>
+                  <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-7 h-full hover:bg-white/15 transition-colors duration-300">
+                    <div className="w-12 h-12 bg-[#00B9F1]/20 border border-[#00B9F1]/40 rounded-xl flex items-center justify-center mb-5">
+                      <Icon className="h-6 w-6 text-[#00B9F1]" />
+                    </div>
+                    <h3 className="text-white font-bold text-lg mb-3">{step.title}</h3>
+                    <p className="text-white/65 text-sm leading-relaxed">{step.description}</p>
+                  </div>
+                </AnimatedSection>
+              );
+            })}
+          </div>
+
+          {/* Trial vs Paid comparison */}
+          <AnimatedSection>
+            <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-3xl p-8 max-w-3xl mx-auto">
+              <div className="grid md:grid-cols-2 gap-8">
+                <div>
+                  <div className="flex items-center gap-2 mb-4">
+                    <Gift className="h-5 w-5 text-[#00B9F1]" />
+                    <span className="text-white font-bold text-lg">Free Trial (7 Days)</span>
+                  </div>
+                  <ul className="space-y-2.5">
+                    {["Full site audit", "Critical bug fixes", "Performance report", "No credit card", "Cancel anytime"].map((f) => (
+                      <li key={f} className="flex items-center gap-2 text-white/75 text-sm">
+                        <CheckCircle2 className="h-4 w-4 text-green-400 flex-shrink-0" /> {f}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div>
+                  <div className="flex items-center gap-2 mb-4">
+                    <Zap className="h-5 w-5 text-[#00B9F1]" />
+                    <span className="text-white font-bold text-lg">Monthly Plan — ₹8,999/mo</span>
+                  </div>
+                  <ul className="space-y-2.5">
+                    {["Ongoing bug fixes", "Feature updates", "SEO & performance", "Priority support", "Monthly reports"].map((f) => (
+                      <li key={f} className="flex items-center gap-2 text-white/75 text-sm">
+                        <CheckCircle2 className="h-4 w-4 text-[#00B9F1] flex-shrink-0" /> {f}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+              <div className="mt-8 text-center">
+                <Button size="lg" className="bg-[#00B9F1] hover:bg-[#009fd4] text-white px-10 text-lg" asChild>
+                  <Link to="/contact">
+                    Claim Your Free Trial
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Link>
+                </Button>
+                <p className="text-white/40 text-xs mt-3">No credit card · No commitment · Cancel anytime</p>
+              </div>
+            </div>
+          </AnimatedSection>
+        </div>
+      </section>
+
+      {/* ── SERVICES ── */}
+      <section className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <AnimatedSection className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">Powerful Solutions for Modern Business</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Everything you need to automate, scale, and transform your business operations with AI-powered tools.
             </p>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          </AnimatedSection>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-7">
             {features.map((feature, index) => {
               const Icon = feature.icon;
               return (
-                <Card key={index} className="border-gray-200 hover:shadow-lg transition-shadow duration-300">
-                  <CardHeader>
-                    <div className="w-12 h-12 bg-gradient-to-br from-[#002E6E] to-[#00B9F1] rounded-lg flex items-center justify-center mb-4">
+                <AnimatedSection key={index} delay={`delay-${(index % 3) * 100}`}>
+                  <div className="group border border-gray-100 rounded-2xl p-7 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 bg-white h-full">
+                    <div className="w-12 h-12 bg-gradient-to-br from-[#002E6E] to-[#00B9F1] rounded-xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
                       <Icon className="h-6 w-6 text-white" />
                     </div>
-                    <CardTitle className="text-xl">{feature.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <CardDescription className="text-gray-600">
-                      {feature.description}
-                    </CardDescription>
-                    <Link 
-                      to="/products" 
-                      className="inline-flex items-center text-[#002E6E] hover:text-[#001f4d] mt-4 transition-colors"
-                    >
-                      Learn more
-                      <ArrowRight className="ml-1 h-4 w-4" />
+                    <h3 className="text-xl font-bold text-gray-900 mb-3">{feature.title}</h3>
+                    <p className="text-gray-500 text-sm leading-relaxed mb-4">{feature.description}</p>
+                    <Link to="/products" className="inline-flex items-center text-[#002E6E] hover:text-[#00B9F1] text-sm font-medium transition-colors">
+                      Learn more <ArrowRight className="ml-1 h-4 w-4" />
                     </Link>
-                  </CardContent>
-                </Card>
+                  </div>
+                </AnimatedSection>
               );
             })}
           </div>
         </div>
       </section>
 
-      {/* Product Showcase Section */}
-      <section className="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              Explore Our Products
-            </h2>
-            <p className="text-xl text-gray-600">
-              Choose the right solution for your business needs
-            </p>
-          </div>
-          <Tabs defaultValue="whatsapp" className="w-full">
-            <TabsList className="grid w-full max-w-2xl mx-auto grid-cols-3 mb-12">
-              <TabsTrigger value="whatsapp">WhatsApp AI</TabsTrigger>
-              <TabsTrigger value="voice">Voice AI</TabsTrigger>
-              <TabsTrigger value="automation">Automation</TabsTrigger>
-            </TabsList>
-            <TabsContent value="whatsapp" className="mt-0">
-              <Card className="border-gray-200">
-                <CardContent className="p-8">
-                  <div className="grid lg:grid-cols-2 gap-8 items-center">
-                    <div>
-                      <Badge className="mb-4 bg-green-100 text-green-700">Most Popular</Badge>
-                      <h3 className="text-3xl font-bold text-gray-900 mb-4">
-                        AI WhatsApp Agent
-                      </h3>
-                      <p className="text-gray-600 mb-6">
-                        Transform customer service with AI-powered WhatsApp automation. Handle thousands of conversations simultaneously with intelligent responses, automated workflows, and seamless handoff to human agents when needed.
-                      </p>
-                      <ul className="space-y-3 mb-8">
-                        <li className="flex items-start">
-                          <CheckCircle2 className="h-5 w-5 text-[#10B981] mr-2 mt-0.5 flex-shrink-0" />
-                          <span className="text-gray-700">24/7 automated customer support</span>
-                        </li>
-                        <li className="flex items-start">
-                          <CheckCircle2 className="h-5 w-5 text-[#10B981] mr-2 mt-0.5 flex-shrink-0" />
-                          <span className="text-gray-700">Multi-language support for global reach</span>
-                        </li>
-                        <li className="flex items-start">
-                          <CheckCircle2 className="h-5 w-5 text-[#10B981] mr-2 mt-0.5 flex-shrink-0" />
-                          <span className="text-gray-700">Smart routing and escalation</span>
-                        </li>
-                      </ul>
-                      <Button className="bg-[#002E6E] hover:bg-[#001f4d]" asChild>
-                        <Link to="/products/whatsapp-ai">
-                          Learn More
-                          <ArrowRight className="ml-2 h-4 w-4" />
-                        </Link>
-                      </Button>
-                    </div>
-                    <div className="rounded-xl overflow-hidden shadow-xl">
-                      <ImageWithFallback
-                        src="https://images.unsplash.com/photo-1603714228681-b399854b8f80?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjdXN0b21lciUyMHNlcnZpY2UlMjBjYWxsJTIwY2VudGVyfGVufDF8fHx8MTc3MTY2MTM0MHww&ixlib=rb-4.1.0&q=80&w=1080"
-                        alt="Meta AI Agent"
-                        className="w-full h-auto"
-                      />
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
-            <TabsContent value="voice" className="mt-0">
-              <Card className="border-gray-200">
-                <CardContent className="p-8">
-                  <div className="grid lg:grid-cols-2 gap-8 items-center">
-                    <div>
-                      <Badge className="mb-4 bg-purple-100 text-purple-700">Enterprise Ready</Badge>
-                      <h3 className="text-3xl font-bold text-gray-900 mb-4">
-                        AI Voice Calling Agent
-                      </h3>
-                      <p className="text-gray-600 mb-6">
-                        Intelligent voice AI that sounds natural and handles complex conversations. Perfect for appointment scheduling, lead qualification, customer surveys, and support calls.
-                      </p>
-                      <ul className="space-y-3 mb-8">
-                        <li className="flex items-start">
-                          <CheckCircle2 className="h-5 w-5 text-[#10B981] mr-2 mt-0.5 flex-shrink-0" />
-                          <span className="text-gray-700">Natural-sounding voice synthesis</span>
-                        </li>
-                        <li className="flex items-start">
-                          <CheckCircle2 className="h-5 w-5 text-[#10B981] mr-2 mt-0.5 flex-shrink-0" />
-                          <span className="text-gray-700">Advanced speech recognition</span>
-                        </li>
-                        <li className="flex items-start">
-                          <CheckCircle2 className="h-5 w-5 text-[#10B981] mr-2 mt-0.5 flex-shrink-0" />
-                          <span className="text-gray-700">CRM integration and call analytics</span>
-                        </li>
-                      </ul>
-                      <Button className="bg-[#002E6E] hover:bg-[#001f4d]" asChild>
-                        <Link to="/products/voice-ai">
-                          Learn More
-                          <ArrowRight className="ml-2 h-4 w-4" />
-                        </Link>
-                      </Button>
-                    </div>
-                    <div className="rounded-xl overflow-hidden shadow-xl">
-                      <ImageWithFallback
-                        src="https://images.unsplash.com/photo-1697577418970-95d99b5a55cf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhcnRpZmljaWFsJTIwaW50ZWxsaWdlbmNlJTIwdGVjaG5vbG9neXxlbnwxfHx8fDE3NzE1ODYwMzl8MA&ixlib=rb-4.1.0&q=80&w=1080"
-                        alt="AI Voice Calling"
-                        className="w-full h-auto"
-                      />
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
-            <TabsContent value="automation" className="mt-0">
-              <Card className="border-gray-200">
-                <CardContent className="p-8">
-                  <div className="grid lg:grid-cols-2 gap-8 items-center">
-                    <div>
-                      <Badge className="mb-4 bg-blue-100 text-blue-700">Efficiency Booster</Badge>
-                      <h3 className="text-3xl font-bold text-gray-900 mb-4">
-                        Business Automation
-                      </h3>
-                      <p className="text-gray-600 mb-6">
-                        Streamline your operations with intelligent automation workflows. Connect your tools, automate repetitive tasks, and focus on what matters most - growing your business.
-                      </p>
-                      <ul className="space-y-3 mb-8">
-                        <li className="flex items-start">
-                          <CheckCircle2 className="h-5 w-5 text-[#10B981] mr-2 mt-0.5 flex-shrink-0" />
-                          <span className="text-gray-700">No-code workflow builder</span>
-                        </li>
-                        <li className="flex items-start">
-                          <CheckCircle2 className="h-5 w-5 text-[#10B981] mr-2 mt-0.5 flex-shrink-0" />
-                          <span className="text-gray-700">1000+ pre-built integrations</span>
-                        </li>
-                        <li className="flex items-start">
-                          <CheckCircle2 className="h-5 w-5 text-[#10B981] mr-2 mt-0.5 flex-shrink-0" />
-                          <span className="text-gray-700">Real-time monitoring and alerts</span>
-                        </li>
-                      </ul>
-                      <Button className="bg-[#002E6E] hover:bg-[#001f4d]" asChild>
-                        <Link to="/products/automation">
-                          Learn More
-                          <ArrowRight className="ml-2 h-4 w-4" />
-                        </Link>
-                      </Button>
-                    </div>
-                    <div className="rounded-xl overflow-hidden shadow-xl">
-                      <ImageWithFallback
-                        src="https://images.unsplash.com/photo-1759752393975-7ca7b302fcc6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxidXNpbmVzcyUyMGF1dG9tYXRpb24lMjB3b3JrZmxvd3xlbnwxfHx8fDE3NzE2NjM2NDh8MA&ixlib=rb-4.1.0&q=80&w=1080"
-                        alt="Business Automation"
-                        className="w-full h-auto"
-                      />
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
-          </Tabs>
-        </div>
-      </section>
-
-      {/* Why Choose OPENDRAP Section */}
+      {/* ── PRICING TEASER ── */}
       <section className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              Why Choose OPENDRAP?
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              We're committed to delivering exceptional value and results for your business
-            </p>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {whyChooseUs.map((item, index) => {
-              const Icon = item.icon;
-              return (
-                <div key={index} className="text-center">
-                  <div className="w-16 h-16 bg-gradient-to-br from-[#002E6E] to-[#00B9F1] rounded-2xl flex items-center justify-center mx-auto mb-4">
-                    <Icon className="h-8 w-8 text-white" />
-                  </div>
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">{item.title}</h3>
-                  <p className="text-gray-600">{item.description}</p>
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <AnimatedSection>
+            <Badge className="mb-4 bg-[#002E6E]/10 text-[#002E6E]">Simple Pricing</Badge>
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">One Plan. Everything Included.</h2>
+            <p className="text-xl text-gray-600 mb-10">After your free trial, continue with our all-inclusive monthly plan.</p>
+            <div className="bg-gradient-to-br from-[#002E6E] to-[#004fa3] rounded-3xl p-10 text-white relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-[#00B9F1]/10 rounded-full blur-3xl" />
+              <div className="relative">
+                <div className="text-[#00B9F1] font-semibold mb-2 text-sm uppercase tracking-widest">Monthly Website Maintenance</div>
+                <div className="flex items-end justify-center gap-2 mb-2">
+                  <span className="text-7xl font-extrabold">₹8,999</span>
+                  <span className="text-white/60 text-xl mb-3">/month</span>
                 </div>
-              );
-            })}
-          </div>
+                <p className="text-white/60 mb-8 text-sm">Billed monthly · Cancel anytime · No lock-in</p>
+                <div className="grid sm:grid-cols-2 gap-3 mb-8 text-left max-w-lg mx-auto">
+                  {[
+                    "Unlimited bug fixes", "Feature updates & enhancements",
+                    "Performance optimization", "SEO improvements",
+                    "Security monitoring", "Monthly progress reports",
+                    "Priority developer support", "Free 7-day trial to start"
+                  ].map((f) => (
+                    <div key={f} className="flex items-center gap-2 text-white/80 text-sm">
+                      <CheckCircle2 className="h-4 w-4 text-[#00B9F1] flex-shrink-0" /> {f}
+                    </div>
+                  ))}
+                </div>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Button size="lg" className="bg-[#00B9F1] hover:bg-[#009fd4] text-white px-10 text-lg" asChild>
+                    <Link to="/contact">Start Free Trial <ArrowRight className="ml-2 h-5 w-5" /></Link>
+                  </Button>
+                  <Link
+                    to="/pricing"
+                    className="inline-flex items-center justify-center px-8 py-3 rounded-lg text-base font-semibold text-white border-2 border-white/60 hover:bg-white/15 hover:border-white transition-all duration-200"
+                  >
+                    See Full Details
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </AnimatedSection>
         </div>
       </section>
 
-      {/* Final CTA Banner */}
+      {/* ── FINAL CTA ── */}
       <section className="py-24 bg-gradient-to-r from-[#002E6E] to-[#00B9F1] text-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Ready to Transform Your Business?
-          </h2>
-          <p className="text-xl text-white/80 mb-8 max-w-3xl mx-auto">
-            Start using OPENDRAP to automate operations, engage customers, and drive growth. Get in touch to learn more.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-white !text-[#002E6E] hover:bg-gray-100 text-lg px-8" asChild>
-              <Link to="/contact">
-                Get Started
-                <ArrowRight className="ml-2 h-5 w-5" />
+          <AnimatedSection>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">Ready to Fix Your Website?</h2>
+            <p className="text-xl text-white/80 mb-8 max-w-2xl mx-auto">
+              Start your 7-day free trial today. Our developers will audit and fix your site — completely free. No strings attached.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button size="lg" className="bg-white !text-[#002E6E] hover:bg-gray-100 text-lg px-10" asChild>
+                <Link to="/contact">Get Free Trial <ArrowRight className="ml-2 h-5 w-5" /></Link>
+              </Button>
+              <Link
+                to="/products"
+                className="inline-flex items-center justify-center px-8 py-3 rounded-lg text-lg font-semibold text-white border-2 border-white/60 hover:bg-white/15 hover:border-white transition-all duration-200"
+              >
+                Explore Services
               </Link>
-            </Button>
-            <Button size="lg" variant="outline" className="border-white bg-transparent !text-white hover:bg-white/10 text-lg px-8" asChild>
-              <Link to="/products">View Products</Link>
-            </Button>
-          </div>
+            </div>
+          </AnimatedSection>
         </div>
       </section>
     </div>
