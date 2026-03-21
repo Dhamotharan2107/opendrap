@@ -19,7 +19,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "https://sjinvite.alwaysdata.net",
+        target: "http://localhost:4001",
         changeOrigin: true,
       },
     },

@@ -6,6 +6,8 @@ import { Label } from "../components/ui/label";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../components/ui/table";
 import { authService } from "../../services/auth";
 
+const BASE = import.meta.env.VITE_API_URL ?? '';
+
 type ContactSubmission = {
   id: number;
   firstName: string;
@@ -33,7 +35,7 @@ export function Developer() {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch("/api/contact", { headers: authService.authHeaders() });
+      const res = await fetch(`${BASE}/api/contact`, { headers: authService.authHeaders() });
       if (res.status === 401) {
         authService.logout();
         setIsAuthenticated(false);

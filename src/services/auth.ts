@@ -1,8 +1,9 @@
 const TOKEN_KEY = 'dev_token';
+const BASE = import.meta.env.VITE_API_URL ?? '';
 
 export const authService = {
   async login(email: string, password: string): Promise<{ ok: boolean; error?: string }> {
-    const res = await fetch('/api/auth/login', {
+    const res = await fetch(`${BASE}/api/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),

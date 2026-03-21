@@ -1,6 +1,8 @@
 import { useState, useCallback } from 'react';
 import { ContactFormData } from '../types';
 
+const BASE = import.meta.env.VITE_API_URL ?? '';
+
 interface UseContactFormReturn {
   formData: ContactFormData;
   isSubmitting: boolean;
@@ -44,7 +46,7 @@ export const useContactForm = (): UseContactFormReturn => {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch('/api/contact', {
+      const response = await fetch(`${BASE}/api/contact`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

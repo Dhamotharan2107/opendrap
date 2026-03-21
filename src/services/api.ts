@@ -1,7 +1,9 @@
 import { ContactFormData, ApiResponse } from '../types';
 
+const BASE = import.meta.env.VITE_API_URL ?? '';
+
 class ApiService {
-  private baseUrl = '/api';
+  private baseUrl = `${BASE}/api`;
 
   async submitContactForm(data: ContactFormData): Promise<ApiResponse> {
     try {

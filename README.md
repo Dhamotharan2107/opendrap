@@ -11,3 +11,7 @@
 
   Open `http://localhost:5173/developer` to view contact submissions.
   
+for cloudflared pages for main 
+  npm run build && npx wrangler pages deploy dist --project-name=opendrap --commit-dirty=true
+for production 
+  npm run build && npx wrangler pages deploy dist --project-name=opendrap --branch=production
