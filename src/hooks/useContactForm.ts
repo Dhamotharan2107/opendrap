@@ -1,5 +1,8 @@
 import { useState, useCallback } from 'react';
+<<<<<<< HEAD
 import { toast } from 'sonner';
+=======
+>>>>>>> 291290953f81be83e74c9634b02b22f925ce4926
 import { ContactFormData } from '../types';
 
 const BASE = import.meta.env.VITE_API_URL ?? '';
@@ -61,6 +64,7 @@ export const useContactForm = (): UseContactFormReturn => {
       }
 
       setSubmitted(true);
+<<<<<<< HEAD
       toast.success('Message sent! We\'ll get back to you within 24 hours.', {
         duration: 5000,
         position: 'top-center',
@@ -72,6 +76,15 @@ export const useContactForm = (): UseContactFormReturn => {
         : (error instanceof Error ? error.message : 'Something went wrong');
       setSubmitError(msg);
       toast.error(msg, { duration: 5000, position: 'top-center' });
+=======
+      resetForm();
+    } catch (error) {
+      if (error instanceof TypeError) {
+        setSubmitError('Backend API is not reachable. Start it with: npm run dev:api');
+      } else {
+        setSubmitError(error instanceof Error ? error.message : 'Something went wrong');
+      }
+>>>>>>> 291290953f81be83e74c9634b02b22f925ce4926
     } finally {
       setIsSubmitting(false);
     }

@@ -17,7 +17,10 @@ export const Footer: React.FC = () => {
     { name: "Products", path: "/products" },
     { name: "Pricing", path: "/pricing" },
     { name: "Contact", path: "/contact" },
+<<<<<<< HEAD
     { name: "Submit a Review", path: "/submit-review" },
+=======
+>>>>>>> 291290953f81be83e74c9634b02b22f925ce4926
   ];
 
   return (

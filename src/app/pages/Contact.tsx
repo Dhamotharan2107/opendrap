@@ -25,7 +25,11 @@ const contactInfo: ContactInfo[] = [
     icon: Phone,
     title: "Call Us",
     content: "8072620523",
+<<<<<<< HEAD
     description: "Mon-Sat, 9am-7pm IST",
+=======
+    description: "Mon-Fri, 9am-6pm PST",
+>>>>>>> 291290953f81be83e74c9634b02b22f925ce4926
     color: "from-purple-500 to-purple-600",
   },
   {
@@ -38,8 +42,13 @@ const contactInfo: ContactInfo[] = [
   {
     icon: Clock,
     title: "Support Hours",
+<<<<<<< HEAD
     content: "24/7 Support",
     description: "AI platform always on",
+=======
+    content: "12/5 Available",
+    description: "Enterprise customers",
+>>>>>>> 291290953f81be83e74c9634b02b22f925ce4926
     color: "from-amber-500 to-amber-600",
   },
 ];
@@ -102,6 +111,7 @@ export const Contact: React.FC = () => {
 
       <div className="bg-white">
         {/* Header Section */}
+<<<<<<< HEAD
         <header
           className="relative overflow-hidden py-28"
           style={{ background: "linear-gradient(135deg, #000d1a 0%, #001428 40%, #001f3f 75%, #002E6E 100%)" }}
@@ -127,6 +137,16 @@ export const Contact: React.FC = () => {
               <p className="text-xl text-white/55 leading-relaxed">
                 Have questions? Ready to start? We'd love to hear from you. Send us a message and
                 our team responds within <span className="text-[#00B9F1] font-semibold">24 hours</span>.
+=======
+        <header className="bg-gradient-to-br from-blue-50 via-white to-purple-50 py-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center max-w-3xl mx-auto">
+              <h1 className="text-5xl font-bold text-gray-900 mb-6">
+                Get in Touch
+              </h1>
+              <p className="text-xl text-gray-600">
+                Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
+>>>>>>> 291290953f81be83e74c9634b02b22f925ce4926
               </p>
             </div>
           </div>
@@ -252,7 +272,11 @@ export const Contact: React.FC = () => {
                         <Button
                           type="submit"
                           size="lg"
+<<<<<<< HEAD
                           className="w-full bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold h-[52px] shadow-[0_0_20px_rgba(37,211,102,0.25)] hover:shadow-[0_0_35px_rgba(37,211,102,0.45)] transition-all duration-300"
+=======
+                          className="w-full bg-[#002E6E] hover:bg-[#001f4d]"
+>>>>>>> 291290953f81be83e74c9634b02b22f925ce4926
                           disabled={isSubmitting}
                         >
                           {isSubmitting ? (
@@ -293,6 +317,7 @@ export const Contact: React.FC = () => {
           </div>
         </section>
 
+<<<<<<< HEAD
         {/* Bottom CTA Section */}
         <section
           className="py-20 relative overflow-hidden"
@@ -322,6 +347,28 @@ export const Contact: React.FC = () => {
                   <Mail className="h-5 w-5" />
                   Email Us
                 </a>
+=======
+        {/* Additional Support Section */}
+        <section className="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center">
+              <h2 className="text-4xl font-bold text-gray-900 mb-4">
+                Need Immediate Assistance?
+              </h2>
+              <p className="text-xl text-gray-600 mb-8">
+                Check out our resources or chat with our support team
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button size="lg" variant="outline" className="border-[#002E6E] !text-[#002E6E] hover:bg-[#002E6E] hover:!text-white">
+                  View Documentation
+                </Button>
+                <Button size="lg" variant="outline" className="border-[#002E6E] !text-[#002E6E] hover:bg-[#002E6E] hover:!text-white">
+                  Live Chat Support
+                </Button>
+                <Button size="lg" variant="outline" className="border-[#002E6E] !text-[#002E6E] hover:bg-[#002E6E] hover:!text-white">
+                  Help Center
+                </Button>
+>>>>>>> 291290953f81be83e74c9634b02b22f925ce4926
               </div>
             </div>
           </div>

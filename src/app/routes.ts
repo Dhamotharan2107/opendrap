@@ -6,7 +6,10 @@ import { ProductDetail } from "./pages/ProductDetail";
 import { Contact } from "./pages/Contact";
 import { Developer } from "./pages/Developer";
 import { Pricing } from "./pages/Pricing";
+<<<<<<< HEAD
 import { SubmitReview } from "./pages/SubmitReview";
+=======
+>>>>>>> 291290953f81be83e74c9634b02b22f925ce4926
 
 export const router = createBrowserRouter([
   {
@@ -19,7 +22,10 @@ export const router = createBrowserRouter([
       { path: "pricing", Component: Pricing },
       { path: "contact", Component: Contact },
       { path: "developer", Component: Developer },
+<<<<<<< HEAD
       { path: "submit-review", Component: SubmitReview },
+=======
+>>>>>>> 291290953f81be83e74c9634b02b22f925ce4926
     ],
   },
 ]);

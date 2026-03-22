@@ -133,6 +133,7 @@ app.post("/api/contact", async (req, res) => {
   }
 });
 
+<<<<<<< HEAD
 /* ──────────────────────────────────
    REVIEWS
 ────────────────────────────────── */
@@ -284,6 +285,8 @@ app.delete("/api/clients/:id", async (req, res) => {
   }
 });
 
+=======
+>>>>>>> 291290953f81be83e74c9634b02b22f925ce4926
 app.listen(port, () => {
   console.log(`API server listening on http://localhost:${port}`);
 });

@@ -18,7 +18,11 @@ SECRET_KEY = os.environ.get('JWT_SECRET', 'dev-secret-change-in-production')
 JWT_EXP_HOURS = 8
 
 # ── Hardcoded developer credentials (move to DB/env for production) ──
+<<<<<<< HEAD
 DEV_EMAIL    = os.environ.get('DEV_EMAIL',    'developer@opendrap.ai')
+=======
+DEV_EMAIL = os.environ.get('DEV_EMAIL', 'developer@opendrap.ai')
+>>>>>>> 291290953f81be83e74c9634b02b22f925ce4926
 DEV_PASSWORD = os.environ.get('DEV_PASSWORD', 'Qwerty@123')
 
 
@@ -35,6 +39,7 @@ def get_conn():
     )
 
 
+<<<<<<< HEAD
 # ── Table bootstraps ──────────────────────────────────────────────────
 
 def ensure_contact_table(cursor):
@@ -65,11 +70,25 @@ def ensure_reviews_table(cursor):
             rating     TINYINT  NOT NULL DEFAULT 5,
             message    TEXT     NOT NULL,
             approved   TINYINT  NOT NULL DEFAULT 0,
+=======
+def ensure_table(cursor):
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS contact_submissions (
+            id BIGINT PRIMARY KEY AUTO_INCREMENT,
+            first_name VARCHAR(100) NOT NULL,
+            last_name VARCHAR(100) NOT NULL,
+            email VARCHAR(255) NOT NULL,
+            phone VARCHAR(50),
+            company VARCHAR(255),
+            inquiry_type VARCHAR(100) NOT NULL,
+            message TEXT NOT NULL,
+>>>>>>> 291290953f81be83e74c9634b02b22f925ce4926
             created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
         )
     """)
 
 
+<<<<<<< HEAD
 def ensure_clients_table(cursor):
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS clients (
@@ -90,6 +109,8 @@ def ensure_clients_table(cursor):
         pass  # column already exists — ignore
 
 
+=======
+>>>>>>> 291290953f81be83e74c9634b02b22f925ce4926
 # ── JWT helpers ───────────────────────────────────────────────────────
 
 def create_token(email: str) -> str:
@@ -117,6 +138,7 @@ def require_auth(f):
     return decorated
 
 
+<<<<<<< HEAD
 def _serialize_row(row: dict) -> dict:
     """Convert datetime objects to ISO strings for JSON serialisation."""
     for key, val in row.items():
@@ -131,6 +153,14 @@ def _serialize_row(row: dict) -> dict:
 def login():
     body     = request.get_json(silent=True) or {}
     email    = body.get('email', '').strip()
+=======
+# ── Auth routes ───────────────────────────────────────────────────────
+
+@app.post('/api/auth/login')
+def login():
+    body = request.get_json(silent=True) or {}
+    email = body.get('email', '').strip()
+>>>>>>> 291290953f81be83e74c9634b02b22f925ce4926
     password = body.get('password', '')
 
     if email == DEV_EMAIL and password == DEV_PASSWORD:
@@ -142,7 +172,11 @@ def login():
 @app.get('/api/auth/me')
 @require_auth
 def me():
+<<<<<<< HEAD
     token   = request.headers['Authorization'].split(' ', 1)[1]
+=======
+    token = request.headers['Authorization'].split(' ', 1)[1]
+>>>>>>> 291290953f81be83e74c9634b02b22f925ce4926
     payload = jwt.decode(token, SECRET_KEY, algorithms=['HS256'])
     return jsonify({'ok': True, 'email': payload['sub']})
 
@@ -165,9 +199,15 @@ def health():
 @require_auth
 def get_contacts():
     try:
+<<<<<<< HEAD
         conn   = get_conn()
         cursor = conn.cursor(dictionary=True)
         ensure_contact_table(cursor)
+=======
+        conn = get_conn()
+        cursor = conn.cursor(dictionary=True)
+        ensure_table(cursor)
+>>>>>>> 291290953f81be83e74c9634b02b22f925ce4926
         cursor.execute("""
             SELECT id,
                    first_name  AS firstName,
@@ -179,8 +219,17 @@ def get_contacts():
             FROM contact_submissions
             ORDER BY created_at DESC
         """)
+<<<<<<< HEAD
         rows = [_serialize_row(r) for r in cursor.fetchall()]
         cursor.close(); conn.close()
+=======
+        rows = cursor.fetchall()
+        for row in rows:
+            if row.get('createdAt'):
+                row['createdAt'] = row['createdAt'].isoformat()
+        cursor.close()
+        conn.close()
+>>>>>>> 291290953f81be83e74c9634b02b22f925ce4926
         return jsonify({'ok': True, 'data': rows})
     except Exception as e:
         return jsonify({'error': 'Failed to fetch submissions', 'details': str(e)}), 500
@@ -188,6 +237,7 @@ def get_contacts():
 
 @app.post('/api/contact')
 def post_contact():
+<<<<<<< HEAD
     body         = request.get_json(silent=True) or {}
     first_name   = body.get('firstName',   '').strip()
     last_name    = body.get('lastName',    '').strip()
@@ -196,26 +246,48 @@ def post_contact():
     company      = body.get('company',     '').strip()
     inquiry_type = body.get('inquiryType', '').strip()
     message      = body.get('message',     '').strip()
+=======
+    body = request.get_json(silent=True) or {}
+    first_name   = body.get('firstName', '').strip()
+    last_name    = body.get('lastName', '').strip()
+    email        = body.get('email', '').strip()
+    phone        = body.get('phone', '').strip()
+    company      = body.get('company', '').strip()
+    inquiry_type = body.get('inquiryType', '').strip()
+    message      = body.get('message', '').strip()
+>>>>>>> 291290953f81be83e74c9634b02b22f925ce4926
 
     if not all([first_name, last_name, email, inquiry_type, message]):
         return jsonify({'error': 'Missing required fields'}), 400
 
     try:
+<<<<<<< HEAD
         conn   = get_conn()
         cursor = conn.cursor()
         ensure_contact_table(cursor)
+=======
+        conn = get_conn()
+        cursor = conn.cursor()
+        ensure_table(cursor)
+>>>>>>> 291290953f81be83e74c9634b02b22f925ce4926
         cursor.execute("""
             INSERT INTO contact_submissions
                 (first_name, last_name, email, phone, company, inquiry_type, message)
             VALUES (%s, %s, %s, %s, %s, %s, %s)
         """, (first_name, last_name, email, phone, company, inquiry_type, message))
         conn.commit()
+<<<<<<< HEAD
         cursor.close(); conn.close()
+=======
+        cursor.close()
+        conn.close()
+>>>>>>> 291290953f81be83e74c9634b02b22f925ce4926
         return jsonify({'ok': True}), 201
     except Exception as e:
         return jsonify({'error': 'Failed to save submission', 'details': str(e)}), 500
 
 
+<<<<<<< HEAD
 # ── Reviews ───────────────────────────────────────────────────────────
 
 @app.post('/api/reviews')
@@ -388,6 +460,8 @@ def delete_client(client_id):
 
 # ── Entry point ───────────────────────────────────────────────────────
 
+=======
+>>>>>>> 291290953f81be83e74c9634b02b22f925ce4926
 if __name__ == '__main__':
     port = int(os.environ.get('API_PORT', 4001))
     app.run(port=port, debug=True)
