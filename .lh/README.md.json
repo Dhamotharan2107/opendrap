@@ -1,0 +1,18 @@
+{
+    "sourceFile": "README.md",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1771671775650,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1771671775650,
+            "name": "Commit-0",
+            "content": "\n  # Design OPENDRAP SaaS Website\n\n  This is a code bundle for Design OPENDRAP SaaS Website. The original project is available at https://www.figma.com/design/fctttk1QBydcDasUMdVGFb/Design-OPENDRAP-SaaS-Website.\n\n  ## Running the code\n\n  Run `npm i` to install the dependencies.\n\n  Run `npm run dev` to start the development server.\n  "
+        }
+    ]
+}
