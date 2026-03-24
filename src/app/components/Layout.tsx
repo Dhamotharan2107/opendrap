@@ -3,6 +3,7 @@ import { Outlet, useLocation } from "react-router";
 import { Navbar } from "./Navbar";
 import { Footer } from "./Footer";
 import { ErrorBoundary } from "../../components/common/ErrorBoundary";
+import { WhatsAppButton } from "../../components/common/WhatsAppButton";
 import { generateOrganizationSchema, generateWebsiteSchema } from "../../utils/seo";
 
 export const Layout: React.FC = () => {
@@ -29,6 +30,7 @@ export const Layout: React.FC = () => {
         </ErrorBoundary>
         <Footer />
       </div>
+      <WhatsAppButton />
     </>
   );
 };

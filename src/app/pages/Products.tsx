@@ -1,11 +1,10 @@
 import { Link } from "react-router";
-<<<<<<< HEAD
 import { useEffect, useRef, useState } from "react";
-import { Button } from "../components/ui/button";
 import { Badge } from "../components/ui/badge";
 import {
-  MessageSquare, Phone, Globe, Smartphone, Bot, Zap,
-  ArrowRight, Workflow, Database, CheckCircle2, ChevronRight
+  MessageSquare, Globe, Smartphone, Bot, Zap,
+  ArrowRight, Workflow, Database, CheckCircle2, ChevronRight,
+  Cloud, Mail, FileText, Image, HardDrive, FolderOpen
 } from "lucide-react";
 
 function useInView(threshold = 0.12) {
@@ -24,9 +23,7 @@ function useInView(threshold = 0.12) {
   return { ref, inView };
 }
 
-function AnimatedSection({
-  children, className = "", delay = ""
-}: { children: React.ReactNode; className?: string; delay?: string }) {
+function AnimatedSection({ children, className = "", delay = "" }: { children: React.ReactNode; className?: string; delay?: string }) {
   const { ref, inView } = useInView();
   return (
     <div ref={ref} className={`${className} opacity-0-init ${inView ? `animate-fade-in-up ${delay}` : ""}`}>
@@ -35,6 +32,8 @@ function AnimatedSection({
   );
 }
 
+const BTN = "inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200";
+
 const products = [
   {
     id: "whatsapp-ai",
@@ -42,19 +41,21 @@ const products = [
     title: "WhatsApp AI Agent",
     description: "Automate customer conversations on WhatsApp with intelligent AI that handles queries, processes orders, and provides support 24/7.",
     features: ["24/7 automated responses", "Multi-language support", "Smart conversation routing", "CRM integration"],
-    color: "from-[#25D366] to-[#128C7E]",
+    gradient: "from-[#25D366] to-[#128C7E]",
+    glow: "rgba(37,211,102,0.3)",
     badge: "Most Popular",
-    badgeColor: "bg-[#25D366]",
   },
   {
-    id: "voice-ai",
-    icon: Phone,
-    title: "AI Voice Calling",
-    description: "Natural-sounding voice AI that makes and receives calls, schedules appointments, qualifies leads, and handles customer inquiries.",
-    features: ["Natural voice synthesis", "Advanced speech recognition", "Call recording & analytics", "IVR integration"],
-    color: "from-purple-500 to-purple-700",
-    badge: null,
-    badgeColor: "",
+    id: "cloud-manager",
+    icon: Cloud,
+    title: "CloudManager",
+    description: "Connect your Google account and manage everything in one place — Drive files, Gmail, Docs, Sheets, and Photos. Add, move, copy, delete and organise with ease.",
+    features: ["Google Drive file management", "Gmail & Docs integration", "Google Sheets & Photos", "Add, move, copy & organise"],
+    gradient: "from-[#1E90FF] to-[#00FFC6]",
+    glow: "rgba(30,144,255,0.35)",
+    badge: "Live",
+    subIcons: [Mail, FileText, Image, HardDrive],
+    externalUrl: "https://cloudmanager.opendrap.website",
   },
   {
     id: "website-dev",
@@ -62,9 +63,9 @@ const products = [
     title: "Website Development",
     description: "Modern, responsive websites built with cutting-edge tech. Fast, secure, SEO-optimized, and conversion-focused.",
     features: ["Responsive design", "SEO optimized", "Lightning fast loading", "CMS integration"],
-    color: "from-blue-500 to-blue-700",
+    gradient: "from-[#1E90FF] to-[#0060cc]",
+    glow: "rgba(30,144,255,0.3)",
     badge: "7-Day Trial",
-    badgeColor: "bg-blue-500",
   },
   {
     id: "mobile-apps",
@@ -72,9 +73,9 @@ const products = [
     title: "Mobile App Development",
     description: "Native iOS & Android apps and cross-platform solutions that deliver exceptional experiences and drive business growth.",
     features: ["iOS & Android support", "Cloud synchronization", "Push notifications", "Offline capabilities"],
-    color: "from-orange-500 to-orange-600",
+    gradient: "from-[#FF6B35] to-[#e04e1a]",
+    glow: "rgba(255,107,53,0.3)",
     badge: null,
-    badgeColor: "",
   },
   {
     id: "chatbot",
@@ -82,9 +83,9 @@ const products = [
     title: "AI Chatbot Platform",
     description: "Multi-channel intelligent chatbots for web, apps, and social platforms. Engage visitors and automate support 24/7.",
     features: ["Multi-channel deployment", "Natural language processing", "Self-learning AI", "Analytics dashboard"],
-    color: "from-[#002E6E] to-[#004fa3]",
+    gradient: "from-[#00FFC6] to-[#00b38a]",
+    glow: "rgba(0,255,198,0.25)",
     badge: null,
-    badgeColor: "",
   },
   {
     id: "automation",
@@ -92,9 +93,9 @@ const products = [
     title: "Business Automation",
     description: "End-to-end workflow automation that connects your tools, eliminates repetitive tasks, and scales your operations.",
     features: ["No-code workflow builder", "1000+ integrations", "Scheduled automations", "Error handling & alerts"],
-    color: "from-yellow-500 to-amber-600",
+    gradient: "from-[#FF6B35] to-[#FFB347]",
+    glow: "rgba(255,107,53,0.3)",
     badge: null,
-    badgeColor: "",
   },
   {
     id: "workflow",
@@ -102,9 +103,9 @@ const products = [
     title: "Workflow Management",
     description: "Optimize business processes with intelligent workflow management, task automation, and real-time team collaboration.",
     features: ["Process visualization", "Task automation", "Team collaboration", "Performance tracking"],
-    color: "from-pink-500 to-pink-700",
+    gradient: "from-[#a855f7] to-[#7c3aed]",
+    glow: "rgba(168,85,247,0.3)",
     badge: null,
-    badgeColor: "",
   },
   {
     id: "crm",
@@ -112,56 +113,36 @@ const products = [
     title: "CRM & Analytics",
     description: "Comprehensive customer relationship management with powerful analytics and insights for smarter business decisions.",
     features: ["Customer management", "Sales pipeline tracking", "Advanced analytics", "Custom reports"],
-    color: "from-teal-500 to-teal-700",
+    gradient: "from-[#00FFC6] to-[#1E90FF]",
+    glow: "rgba(0,255,198,0.25)",
     badge: null,
-    badgeColor: "",
   },
 ];
 
 export function Products() {
   const [headerVisible, setHeaderVisible] = useState(false);
-  useEffect(() => {
-    const t = setTimeout(() => setHeaderVisible(true), 80);
-    return () => clearTimeout(t);
-  }, []);
+  useEffect(() => { const t = setTimeout(() => setHeaderVisible(true), 80); return () => clearTimeout(t); }, []);
 
   return (
-    <div className="bg-white overflow-x-hidden">
+    <div className="overflow-x-hidden" style={{ background: "#0B0F1A" }}>
 
       {/* ── HERO ── */}
-      <section
-        className="relative overflow-hidden py-28"
-        style={{
-          background: "linear-gradient(135deg, #000d1a 0%, #001428 40%, #001f3f 75%, #002E6E 100%)",
-        }}
-      >
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            backgroundImage:
-              "linear-gradient(rgba(0,185,241,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,185,241,0.04) 1px, transparent 1px)",
-            backgroundSize: "48px 48px",
-          }}
-        />
-        <div className="absolute top-10 right-10 w-80 h-80 bg-[#00B9F1]/10 rounded-full blur-3xl pointer-events-none animate-float" />
-        <div className="absolute bottom-10 left-10 w-72 h-72 bg-[#25D366]/5 rounded-full blur-3xl pointer-events-none animate-float-slow" />
+      <section className="relative overflow-hidden py-28" style={{ background: "linear-gradient(135deg,#0B0F1A 0%,#0d1526 50%,#0B0F1A 100%)" }}>
+        <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "linear-gradient(rgba(30,144,255,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(30,144,255,0.04) 1px,transparent 1px)", backgroundSize: "48px 48px" }} />
+        <div className="absolute top-10 right-10 w-80 h-80 rounded-full blur-3xl pointer-events-none animate-float" style={{ background: "rgba(30,144,255,0.12)" }} />
+        <div className="absolute bottom-10 left-10 w-72 h-72 rounded-full blur-3xl pointer-events-none animate-float-slow" style={{ background: "rgba(0,255,198,0.07)" }} />
 
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className={`opacity-0-init ${headerVisible ? "animate-fade-in-up" : ""}`}>
-            <Badge className="mb-5 bg-[#00B9F1]/15 text-[#00B9F1] border border-[#00B9F1]/25 text-sm px-4 py-2">
+            <Badge className="mb-5 text-sm px-4 py-2 border" style={{ background: "rgba(30,144,255,0.12)", color: "#1E90FF", borderColor: "rgba(30,144,255,0.25)" }}>
               AI-Powered Solutions
             </Badge>
           </div>
-          <h1
-            className={`text-5xl md:text-6xl font-black text-white mb-6 tracking-tight leading-tight opacity-0-init ${headerVisible ? "animate-fade-in-up delay-100" : ""}`}
-          >
+          <h1 className={`text-5xl md:text-6xl font-black mb-6 tracking-tight leading-tight opacity-0-init ${headerVisible ? "animate-fade-in-up delay-100" : ""}`} style={{ color: "#FFFFFF" }}>
             Products &amp; Solutions
           </h1>
-          <p
-            className={`text-xl text-white/55 max-w-2xl mx-auto leading-relaxed opacity-0-init ${headerVisible ? "animate-fade-in-up delay-200" : ""}`}
-          >
-            Comprehensive AI-powered tools designed to automate operations, engage customers,
-            and drive measurable business growth — all from one trusted partner.
+          <p className={`text-xl max-w-2xl mx-auto leading-relaxed opacity-0-init ${headerVisible ? "animate-fade-in-up delay-200" : ""}`} style={{ color: "#B0B0B0" }}>
+            Comprehensive AI-powered tools designed to automate operations, engage customers, and drive measurable business growth.
           </p>
         </div>
       </section>
@@ -174,290 +155,91 @@ export function Products() {
               const Icon = product.icon;
               return (
                 <AnimatedSection key={product.id} delay={`delay-${(index % 3) * 100}`}>
-                  <div className="group border border-gray-100 rounded-2xl p-7 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 bg-white h-full flex flex-col spotlight-card relative">
+                  <div
+                    className="group rounded-2xl p-7 h-full flex flex-col relative overflow-hidden transition-all duration-500 hover:-translate-y-2"
+                    style={{
+                      background: "rgba(255,255,255,0.03)",
+                      border: "1px solid rgba(255,255,255,0.07)",
+                    }}
+                    onMouseEnter={e => {
+                      (e.currentTarget as HTMLElement).style.border = `1px solid rgba(30,144,255,0.3)`;
+                      (e.currentTarget as HTMLElement).style.boxShadow = `0 20px 60px ${product.glow}`;
+                    }}
+                    onMouseLeave={e => {
+                      (e.currentTarget as HTMLElement).style.border = "1px solid rgba(255,255,255,0.07)";
+                      (e.currentTarget as HTMLElement).style.boxShadow = "none";
+                    }}
+                  >
+                    {/* Badge */}
                     {product.badge && (
-                      <span
-                        className={`absolute top-4 right-4 ${product.badgeColor} text-white text-[11px] font-bold px-2.5 py-1 rounded-full`}
-                      >
+                      <span className="absolute top-4 right-4 text-[11px] font-bold px-2.5 py-1 rounded-full text-white" style={{ background: "linear-gradient(135deg,#1E90FF,#00FFC6)" }}>
                         {product.badge}
                       </span>
                     )}
-                    <div
-                      className={`w-[52px] h-[52px] bg-gradient-to-br ${product.color} rounded-2xl flex items-center justify-center mb-5 shadow-lg group-hover:scale-110 transition-transform duration-300`}
-                    >
+
+                    {/* Icon */}
+                    <div className={`w-[52px] h-[52px] bg-gradient-to-br ${product.gradient} rounded-2xl flex items-center justify-center mb-5 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
                       <Icon className="h-6 w-6 text-white" />
                     </div>
-                    <h2 className="text-xl font-bold text-gray-900 mb-3">{product.title}</h2>
-                    <p className="text-gray-500 text-sm leading-relaxed mb-5 flex-1">{product.description}</p>
+
+                    {/* CloudManager sub-icons */}
+                    {product.subIcons && (
+                      <div className="flex gap-2 mb-4">
+                        {product.subIcons.map((SubIcon, i) => (
+                          <div key={i} className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: "rgba(30,144,255,0.15)", border: "1px solid rgba(30,144,255,0.2)" }}>
+                            <SubIcon className="h-3.5 w-3.5" style={{ color: "#1E90FF" }} />
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
+                    <h2 className="text-xl font-bold mb-3" style={{ color: "#FFFFFF" }}>{product.title}</h2>
+                    <p className="text-sm leading-relaxed mb-5 flex-1" style={{ color: "#B0B0B0" }}>{product.description}</p>
+
                     <ul className="space-y-2 mb-6">
                       {product.features.map((feature, i) => (
-                        <li key={i} className="flex items-center gap-2.5 text-sm text-gray-600">
-                          <CheckCircle2 className="h-4 w-4 text-[#25D366] flex-shrink-0" />
-=======
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/card";
-import { Button } from "../components/ui/button";
-import { 
-  MessageSquare, 
-  Phone, 
-  Globe, 
-  Smartphone, 
-  Bot, 
-  Zap,
-  ArrowRight,
-  Workflow,
-  Database
-} from "lucide-react";
-
-export function Products() {
-  const products = [
-    {
-      id: "whatsapp-ai",
-      icon: MessageSquare,
-      title: "Meta AI Agent",
-      description: "Automate customer conversations on WhatsApp with intelligent AI that handles queries, processes orders, and provides support 24/7.",
-      features: [
-        "24/7 automated responses",
-        "Multi-language support",
-        "Smart conversation routing",
-        "CRM integration",
-      ],
-      color: "from-green-500 to-green-600",
-    },
-    {
-      id: "voice-ai",
-      icon: Phone,
-      title: "AI Voice Calling Agent",
-      description: "Natural-sounding voice AI that makes and receives calls, schedules appointments, qualifies leads, and handles customer inquiries.",
-      features: [
-        "Natural voice synthesis",
-        "Advanced speech recognition",
-        "Call recording & analytics",
-        "IVR integration",
-      ],
-      color: "from-purple-500 to-purple-600",
-    },
-    {
-      id: "website-dev",
-      icon: Globe,
-      title: "Website Development",
-      description: "Modern, responsive websites built with cutting-edge technology. Fast, secure, and optimized for conversions.",
-      features: [
-        "Responsive design",
-        "SEO optimized",
-        "Fast loading speeds",
-        "CMS integration",
-      ],
-      color: "from-blue-500 to-blue-600",
-    },
-    {
-      id: "mobile-app",
-      icon: Smartphone,
-      title: "Mobile App Development",
-      description: "Native and cross-platform mobile applications that deliver exceptional user experiences on iOS and Android.",
-      features: [
-        "iOS & Android support",
-        "Cloud synchronization",
-        "Push notifications",
-        "Offline capabilities",
-      ],
-      color: "from-indigo-500 to-indigo-600",
-    },
-    {
-      id: "chatbot",
-      icon: Bot,
-      title: "AI Chatbot Platform",
-      description: "Deploy intelligent chatbots across your website, apps, and social media to engage customers and automate support.",
-      features: [
-        "Multi-channel deployment",
-        "Natural language processing",
-        "Learning & improvement",
-        "Analytics dashboard",
-      ],
-      color: "from-cyan-500 to-cyan-600",
-    },
-    {
-      id: "automation",
-      icon: Zap,
-      title: "Business Automation Tools",
-      description: "Streamline operations with custom automation workflows that connect your tools and eliminate repetitive tasks.",
-      features: [
-        "No-code workflow builder",
-        "1000+ integrations",
-        "Scheduled automations",
-        "Error handling",
-      ],
-      color: "from-amber-500 to-amber-600",
-    },
-    {
-      id: "workflow",
-      icon: Workflow,
-      title: "Workflow Management",
-      description: "Optimize your business processes with intelligent workflow management and task automation.",
-      features: [
-        "Process visualization",
-        "Task automation",
-        "Team collaboration",
-        "Performance tracking",
-      ],
-      color: "from-pink-500 to-pink-600",
-    },
-    {
-      id: "crm",
-      icon: Database,
-      title: "CRM & Analytics",
-      description: "Comprehensive customer relationship management with powerful analytics and insights for data-driven decisions.",
-      features: [
-        "Customer management",
-        "Sales pipeline tracking",
-        "Advanced analytics",
-        "Custom reports",
-      ],
-      color: "from-teal-500 to-teal-600",
-    },
-  ];
-
-  return (
-    <div className="bg-white">
-      {/* Header Section */}
-      <section className="bg-gradient-to-br from-blue-50 via-white to-purple-50 py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto">
-            <h1 className="text-5xl font-bold text-gray-900 mb-6">
-              Our Products & Solutions
-            </h1>
-            <p className="text-xl text-gray-600">
-              Comprehensive AI-powered solutions designed to transform your business operations and drive growth.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Products Grid */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {products.map((product) => {
-              const Icon = product.icon;
-              return (
-                <Card
-                  key={product.id}
-                  className="border-gray-200 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
-                >
-                  <CardHeader>
-                    <div className={`w-14 h-14 bg-gradient-to-br ${product.color} rounded-xl flex items-center justify-center mb-4`}>
-                      <Icon className="h-7 w-7 text-white" />
-                    </div>
-                    <CardTitle className="text-2xl">{product.title}</CardTitle>
-                    <CardDescription className="text-gray-600 mt-2">
-                      {product.description}
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <ul className="space-y-2 mb-6">
-                      {product.features.map((feature, index) => (
-                        <li key={index} className="flex items-center text-sm text-gray-700">
-                          <div className="w-1.5 h-1.5 bg-[#00B9F1] rounded-full mr-2" />
->>>>>>> 291290953f81be83e74c9634b02b22f925ce4926
+                        <li key={i} className="flex items-center gap-2.5 text-sm" style={{ color: "#B0B0B0" }}>
+                          <CheckCircle2 className="h-4 w-4 flex-shrink-0" style={{ color: "#00FFC6" }} />
                           {feature}
                         </li>
                       ))}
                     </ul>
-<<<<<<< HEAD
+
                     <Link
                       to={`/products/${product.id}`}
-                      className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl border border-[#002E6E]/20 text-[#002E6E] text-sm font-semibold hover:bg-[#002E6E] hover:text-white hover:border-[#002E6E] transition-all duration-200 group/btn"
+                      className={`${BTN} self-start`}
+                      style={{ background: "linear-gradient(135deg,#1E90FF,#00FFC6)", color: "#0B0F1A" }}
                     >
-                      Learn More
-                      <ChevronRight className="h-4 w-4 group-hover/btn:translate-x-0.5 transition-transform" />
+                      Learn More <ChevronRight className="h-4 w-4" />
                     </Link>
                   </div>
                 </AnimatedSection>
-=======
-                    <Button
-                      variant="outline"
-                      className="w-full border-[#002E6E] !text-[#002E6E] hover:bg-[#002E6E] hover:!text-white"
-                      asChild
-                    >
-                      <Link to={`/products/${product.id}`}>
-                        Learn More
-                        <ArrowRight className="ml-2 h-4 w-4" />
-                      </Link>
-                    </Button>
-                  </CardContent>
-                </Card>
->>>>>>> 291290953f81be83e74c9634b02b22f925ce4926
               );
             })}
           </div>
         </div>
       </section>
 
-<<<<<<< HEAD
       {/* ── CTA ── */}
-      <section
-        className="py-24 relative overflow-hidden"
-        style={{
-          background: "linear-gradient(135deg, #000d1a 0%, #001428 40%, #002E6E 100%)",
-        }}
-      >
-        <div className="absolute top-0 right-0 w-96 h-96 bg-[#00B9F1]/8 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#25D366]/5 rounded-full blur-3xl pointer-events-none" />
-
+      <section className="py-24 relative overflow-hidden" style={{ background: "linear-gradient(135deg,#0B0F1A,#0d1526)" }}>
+        <div className="absolute top-0 right-0 w-96 h-96 rounded-full blur-3xl pointer-events-none" style={{ background: "rgba(30,144,255,0.08)" }} />
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <AnimatedSection>
-            <Badge className="mb-5 bg-[#25D366]/15 text-[#4ade80] border border-[#25D366]/25 text-sm px-4 py-2">
-              Custom Solutions
-            </Badge>
-            <h2 className="text-4xl md:text-5xl font-black text-white mb-5 tracking-tight">
-              Need Something Custom?
-            </h2>
-            <p className="text-xl text-white/50 mb-10 max-w-2xl mx-auto leading-relaxed">
-              Our team builds tailored AI solutions and automation workflows specific to your industry
-              and business requirements.
+            <h2 className="text-4xl md:text-5xl font-black mb-5 tracking-tight" style={{ color: "#FFFFFF" }}>Need Something Custom?</h2>
+            <p className="text-xl mb-10 max-w-2xl mx-auto" style={{ color: "#B0B0B0" }}>
+              Our team builds tailored AI solutions and automation workflows specific to your industry and business requirements.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                size="lg"
-                className="bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-base px-10 h-[52px] shadow-[0_0_30px_rgba(37,211,102,0.3)] hover:shadow-[0_0_50px_rgba(37,211,102,0.5)] transition-all duration-300 magnetic-btn"
-                asChild
-              >
-                <Link to="/contact">
-                  Contact Our Team <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-              </Button>
-              <Link
-                to="/pricing"
-                className="inline-flex items-center justify-center gap-2 px-8 h-[52px] rounded-lg text-base font-semibold text-white border-2 border-white/25 hover:bg-white/10 hover:border-white/40 transition-all duration-200"
-              >
+              <Link to="/contact" className="inline-flex items-center justify-center gap-2 px-10 py-4 rounded-xl font-bold text-base transition-all duration-300 hover:opacity-90 hover:scale-105" style={{ background: "linear-gradient(135deg,#1E90FF,#00FFC6)", color: "#0B0F1A", boxShadow: "0 0 30px rgba(30,144,255,0.35)" }}>
+                Contact Our Team <ArrowRight className="h-5 w-5" />
+              </Link>
+              <Link to="/pricing" className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-bold text-base transition-all duration-200 hover:bg-white/10" style={{ color: "#FFFFFF", border: "2px solid rgba(255,255,255,0.2)" }}>
                 View Pricing
               </Link>
             </div>
           </AnimatedSection>
-=======
-      {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold text-gray-900 mb-6">
-            Need a Custom Solution?
-          </h2>
-          <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-            Our team can build tailored solutions to meet your specific business requirements. Let's discuss your needs.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-[#002E6E] hover:bg-[#001f4d]" asChild>
-              <Link to="/contact">
-                Contact Us
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
-            </Button>
-          </div>
->>>>>>> 291290953f81be83e74c9634b02b22f925ce4926
         </div>
       </section>
     </div>
   );
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 291290953f81be83e74c9634b02b22f925ce4926

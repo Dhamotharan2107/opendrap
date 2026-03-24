@@ -6,10 +6,12 @@ import { ProductDetail } from "./pages/ProductDetail";
 import { Contact } from "./pages/Contact";
 import { Developer } from "./pages/Developer";
 import { Pricing } from "./pages/Pricing";
-<<<<<<< HEAD
 import { SubmitReview } from "./pages/SubmitReview";
-=======
->>>>>>> 291290953f81be83e74c9634b02b22f925ce4926
+import { PrivacyPolicy } from "./pages/PrivacyPolicy";
+import { TermsOfService } from "./pages/TermsOfService";
+import { About } from "./pages/About";
+import { Team } from "./pages/Team";
+import { CookiePolicy } from "./pages/CookiePolicy";
 
 export const router = createBrowserRouter([
   {
@@ -22,10 +24,12 @@ export const router = createBrowserRouter([
       { path: "pricing", Component: Pricing },
       { path: "contact", Component: Contact },
       { path: "developer", Component: Developer },
-<<<<<<< HEAD
       { path: "submit-review", Component: SubmitReview },
-=======
->>>>>>> 291290953f81be83e74c9634b02b22f925ce4926
+      { path: "about", Component: About },
+      { path: "team", Component: Team },
+      { path: "privacy-policy", Component: PrivacyPolicy },
+      { path: "terms-of-service", Component: TermsOfService },
+      { path: "cookie-policy", Component: CookiePolicy },
     ],
   },
 ]);
