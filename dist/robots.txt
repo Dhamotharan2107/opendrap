@@ -10,7 +10,7 @@ Disallow: /developer/
 Disallow: /admin/
 
 # Sitemap location
-Sitemap: https://opendrap.com/sitemap.xml
+Sitemap: https://opendrap.website/sitemap.xml
 
 # Crawl-delay for polite crawling
 Crawl-delay: 1

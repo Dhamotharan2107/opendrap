@@ -1,5 +1,8 @@
 import os
+import smtplib
+import threading
 from datetime import datetime, timedelta, timezone
+from email.mime.text import MIMEText
 from functools import wraps
 
 import mysql.connector
@@ -235,9 +238,27 @@ def get_contacts():
         return jsonify({'error': 'Failed to fetch submissions', 'details': str(e)}), 500
 
 
+def send_thank_you(to, first_name):
+    try:
+        msg = MIMEText(
+            f"<p>Hi {first_name},</p>"
+            "<p>Thank you for reaching out to <strong>OpenDRAP</strong>. "
+            "We've received your message and will get back to you shortly.</p>"
+            "<p>Best regards,<br/>The OpenDRAP Team</p>",
+            'html'
+        )
+        msg['Subject'] = 'Thanks for contacting OpenDRAP!'
+        msg['From'] = 'info@opendrap.website'
+        msg['To'] = to
+        with smtplib.SMTP_SSL('smtppro.zoho.in', 465) as server:
+            server.login('info@opendrap.website', 'Opendrap@dev2026')
+            server.send_message(msg)
+    except Exception as e:
+        print(f'Failed to send thank-you email: {e}')
+
+
 @app.post('/api/contact')
 def post_contact():
-<<<<<<< HEAD
     body         = request.get_json(silent=True) or {}
     first_name   = body.get('firstName',   '').strip()
     last_name    = body.get('lastName',    '').strip()
@@ -246,42 +267,22 @@ def post_contact():
     company      = body.get('company',     '').strip()
     inquiry_type = body.get('inquiryType', '').strip()
     message      = body.get('message',     '').strip()
-=======
-    body = request.get_json(silent=True) or {}
-    first_name   = body.get('firstName', '').strip()
-    last_name    = body.get('lastName', '').strip()
-    email        = body.get('email', '').strip()
-    phone        = body.get('phone', '').strip()
-    company      = body.get('company', '').strip()
-    inquiry_type = body.get('inquiryType', '').strip()
-    message      = body.get('message', '').strip()
->>>>>>> 291290953f81be83e74c9634b02b22f925ce4926
 
     if not all([first_name, last_name, email, inquiry_type, message]):
         return jsonify({'error': 'Missing required fields'}), 400
 
     try:
-<<<<<<< HEAD
         conn   = get_conn()
         cursor = conn.cursor()
         ensure_contact_table(cursor)
-=======
-        conn = get_conn()
-        cursor = conn.cursor()
-        ensure_table(cursor)
->>>>>>> 291290953f81be83e74c9634b02b22f925ce4926
         cursor.execute("""
             INSERT INTO contact_submissions
                 (first_name, last_name, email, phone, company, inquiry_type, message)
             VALUES (%s, %s, %s, %s, %s, %s, %s)
         """, (first_name, last_name, email, phone, company, inquiry_type, message))
         conn.commit()
-<<<<<<< HEAD
         cursor.close(); conn.close()
-=======
-        cursor.close()
-        conn.close()
->>>>>>> 291290953f81be83e74c9634b02b22f925ce4926
+        threading.Thread(target=send_thank_you, args=(email, first_name), daemon=True).start()
         return jsonify({'ok': True}), 201
     except Exception as e:
         return jsonify({'error': 'Failed to save submission', 'details': str(e)}), 500

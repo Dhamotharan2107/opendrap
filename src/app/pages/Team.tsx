@@ -4,19 +4,19 @@ import { Github, Mail } from "lucide-react";
 import { AnimatedSection } from "../../components/common/AnimatedSection";
 import { useState, useEffect } from "react";
 
-const P  = "#1E90FF";
-const A  = "#00FFC6";
+const P = "#1E90FF";
+const A = "#00FFC6";
 const BG = "#0B0F1A";
-const S  = "#111827";
+const S = "#111827";
 const S2 = "#0d1526";
 
 const team = [
-  { name: "Piccolo",  quote: "I don't just write code — I build things people actually use.",                       avatar: "Pic", gradient: `linear-gradient(135deg, ${P}, ${A})` },
-  { name: "Akame",    quote: "Making machines understand humans is the most exciting problem I've ever worked on.", avatar: "Aka", gradient: "linear-gradient(135deg, #25D366, #128C7E)" },
-  { name: "Aizen",    quote: "If it loads slow or looks off on mobile, I take it personally.",                    avatar: "Aiz", gradient: "linear-gradient(135deg, #a855f7, #7c3aed)" },
-  { name: "Ryuk",     quote: "99.9% uptime isn't a goal, it's the baseline.",                                     avatar: "Ryu", gradient: "linear-gradient(135deg, #f59e0b, #d97706)" },
-  { name: "Renji",    quote: "Good design is invisible. Bad design is all you see.",                               avatar: "Ren", gradient: "linear-gradient(135deg, #ef4444, #dc2626)" },
-  { name: "Deidara",  quote: "Clean code is a form of respect — for the client and for future developers.",        avatar: "Dei", gradient: "linear-gradient(135deg, #00FFC6, #00b38a)" },
+  { name: "Piccolo", quote: "I don't just write code — I build things people actually use.", avatar: "Pic", gradient: `linear-gradient(135deg, ${P}, ${A})` },
+  { name: "Akame", quote: "Making machines understand humans is the most exciting problem I've ever worked on.", avatar: "Aka", gradient: "linear-gradient(135deg, #25D366, #128C7E)" },
+  { name: "Aizen", quote: "If it loads slow or looks off on mobile, I take it personally.", avatar: "Aiz", gradient: "linear-gradient(135deg, #a855f7, #7c3aed)" },
+  { name: "Ryuk", quote: "99.9% uptime isn't a goal, it's the baseline.", avatar: "Ryu", gradient: "linear-gradient(135deg, #f59e0b, #d97706)" },
+  { name: "Renji", quote: "Good design is invisible. Bad design is all you see.", avatar: "Ren", gradient: "linear-gradient(135deg, #ef4444, #dc2626)" },
+  { name: "Deidara", quote: "Clean code is a form of respect — for the client and for future developers.", avatar: "Dei", gradient: "linear-gradient(135deg, #00FFC6, #00b38a)" },
 ];
 
 export function Team() {
@@ -65,8 +65,8 @@ export function Team() {
                   <p className="text-sm leading-relaxed mb-5 italic" style={{ color: "#B0B0B0" }}>&ldquo;{member.quote}&rdquo;</p>
                   <div className="flex gap-2">
                     {[
-                      { href: "#",                              Icon: Github, label: "GitHub" },
-                      { href: "mailto:office.opendrap@gmail.com", Icon: Mail,   label: "Email"  },
+                      { href: "#", Icon: Github, label: "GitHub" },
+                      { href: "mailto:info@opendrap.website", Icon: Mail, label: "Email" },
                     ].map(({ href, Icon, label }) => (
                       <a key={label} href={href} aria-label={label}
                         className="w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-200"

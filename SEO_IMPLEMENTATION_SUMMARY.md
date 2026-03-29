@@ -19,10 +19,10 @@
 
 <!-- Open Graph Tags -->
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://opendrap.com/" />
+<meta property="og:url" content="https://opendrap.website/" />
 <meta property="og:title" content="OPENDRAP - AI-Powered Business Automation" />
 <meta property="og:description" content="..." />
-<meta property="og:image" content="https://opendrap.com/og-image.jpg" />
+<meta property="og:image" content="https://opendrap.website/og-image.jpg" />
 
 <!-- Twitter Card Tags -->
 <meta name="twitter:card" content="summary_large_image" />
@@ -68,7 +68,7 @@ export const SEO_CONFIG = {
   titleTemplate: '%s | OPENDRAP',
   defaultDescription: '...',
   siteUrl: 'https://opendrap.com',
-  defaultImage: 'https://opendrap.com/og-image.jpg',
+  defaultImage: 'https://opendrap.website/og-image.jpg',
   twitterHandle: '@opendrap',
   keywords: ['AI automation', 'WhatsApp AI agent', ...],
 };
@@ -116,7 +116,7 @@ User-agent: *
 Allow: /
 Disallow: /api/
 Disallow: /developer/
-Sitemap: https://opendrap.com/sitemap.xml
+Sitemap: https://opendrap.website/sitemap.xml
 ```
 
 **sitemap.xml:**
@@ -160,7 +160,7 @@ import { generateBreadcrumbSchema } from '../../utils/seo';
 export const MyPage = () => {
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: 'Home', url: 'https://opendrap.com' },
-    { name: 'Page', url: 'https://opendrap.com/page' },
+    { name: 'Page', url: 'https://opendrap.website/page' },
   ]);
 
   return (
@@ -185,7 +185,7 @@ export const MyPage = () => {
 ### 4. Submit to Search Engines
 1. Go to [Google Search Console](https://search.google.com/search-console)
 2. Add property: `https://opendrap.com`
-3. Submit sitemap: `https://opendrap.com/sitemap.xml`
+3. Submit sitemap: `https://opendrap.website/sitemap.xml`
 4. Repeat for Bing Webmaster Tools
 
 ## 📊 SEO Checklist

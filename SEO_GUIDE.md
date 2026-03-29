@@ -114,8 +114,8 @@ export const ProductPage = () => {
 
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: 'Home', url: 'https://opendrap.com' },
-    { name: 'Products', url: 'https://opendrap.com/products' },
-    { name: 'WhatsApp AI', url: 'https://opendrap.com/products/whatsapp-ai' },
+    { name: 'Products', url: 'https://opendrap.website/products' },
+    { name: 'WhatsApp AI', url: 'https://opendrap.website/products/whatsapp-ai' },
   ]);
 
   return (

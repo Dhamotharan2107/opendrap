@@ -4,7 +4,7 @@
   
   <!-- Homepage -->
   <url>
-    <loc>https://opendrap.com/</loc>
+    <loc>https://opendrap.website/</loc>
     <lastmod>2024-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
@@ -12,7 +12,7 @@
   
   <!-- Products Page -->
   <url>
-    <loc>https://opendrap.com/products</loc>
+    <loc>https://opendrap.website/products</loc>
     <lastmod>2024-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -20,7 +20,7 @@
   
   <!-- WhatsApp AI Product -->
   <url>
-    <loc>https://opendrap.com/products/whatsapp-ai</loc>
+    <loc>https://opendrap.website/products/whatsapp-ai</loc>
     <lastmod>2024-01-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -28,7 +28,7 @@
   
   <!-- Voice AI Product -->
   <url>
-    <loc>https://opendrap.com/products/voice-ai</loc>
+    <loc>https://opendrap.website/products/voice-ai</loc>
     <lastmod>2024-01-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -36,7 +36,7 @@
   
   <!-- Chatbot Product -->
   <url>
-    <loc>https://opendrap.com/products/chatbot</loc>
+    <loc>https://opendrap.website/products/chatbot</loc>
     <lastmod>2024-01-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -44,7 +44,7 @@
   
   <!-- Automation Product -->
   <url>
-    <loc>https://opendrap.com/products/automation</loc>
+    <loc>https://opendrap.website/products/automation</loc>
     <lastmod>2024-01-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -52,7 +52,7 @@
   
   <!-- Contact Page -->
   <url>
-    <loc>https://opendrap.com/contact</loc>
+    <loc>https://opendrap.website/contact</loc>
     <lastmod>2024-01-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>

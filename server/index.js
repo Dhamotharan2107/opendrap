@@ -2,6 +2,36 @@ import "dotenv/config";
 import cors from "cors";
 import express from "express";
 import mysql from "mysql2/promise";
+import nodemailer from "nodemailer";
+
+const mailer = nodemailer.createTransport({
+  host: "smtppro.zoho.in",
+  port: 465,
+  secure: true,
+  auth: { user: "info@opendrap.website", pass: "Opendrap@dev2026" },
+});
+
+mailer.verify((err) => {
+  if (err) console.error("SMTP connection failed:", err.message);
+  else console.log("SMTP ready — Zoho connected");
+});
+
+const sendThankYou = async (to, firstName) => {
+  try {
+    const info = await mailer.sendMail({
+      from: '"OpenDRAP" <info@opendrap.website>',
+      to,
+      subject: "Thanks for contacting OpenDRAP!",
+      html: `<p>Hi ${firstName},</p>
+<p>Thank you for reaching out to <strong>OpenDRAP</strong>. We've received your message and will get back to you shortly.</p>
+<p>In the meantime, feel free to explore our website or reply to this email if you have any urgent questions.</p>
+<p>Best regards,<br/>The OpenDRAP Team</p>`,
+    });
+    console.log("Thank-you email sent to", to, "| messageId:", info.messageId);
+  } catch (err) {
+    console.error("Failed to send thank-you email to", to, "|", err.message);
+  }
+};
 
 const app = express();
 const port = Number(process.env.API_PORT || 4001);
@@ -126,6 +156,7 @@ app.post("/api/contact", async (req, res) => {
       ],
     );
 
+    sendThankYou(email.trim(), firstName.trim());
     return res.status(201).json({ ok: true });
   } catch (error) {
     console.error("Failed to save contact submission", error);

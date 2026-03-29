@@ -1,5 +1,9 @@
 interface Env {
   DB: D1Database;
+  ZOHO_CLIENT_ID: string;
+  ZOHO_CLIENT_SECRET: string;
+  ZOHO_REFRESH_TOKEN: string;
+  ZOHO_ACCOUNT_ID: string;
 }
 
 const json = (data: unknown, status = 200) =>
@@ -67,8 +71,48 @@ export async function onRequestPost(context: { request: Request; env: Env }) {
        VALUES (?, ?, ?, ?, ?, ?, ?)`
     ).bind(firstName.trim(), lastName.trim(), email.trim(), phone.trim(), company.trim(), inquiryType.trim(), message.trim()).run();
 
+    // Send thank-you email via Zoho Mail API (non-blocking)
+    context.waitUntil(sendThankYou(context.env, email.trim(), firstName.trim()));
+
     return json({ ok: true }, 201);
   } catch (error) {
     return json({ error: 'Failed to save submission', details: error instanceof Error ? error.message : String(error) }, 500);
+  }
+}
+
+async function getZohoAccessToken(env: Env): Promise<string> {
+  const res = await fetch('https://accounts.zoho.com/oauth/v2/token', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({
+      grant_type: 'refresh_token',
+      client_id: env.ZOHO_CLIENT_ID,
+      client_secret: env.ZOHO_CLIENT_SECRET,
+      refresh_token: env.ZOHO_REFRESH_TOKEN,
+    }),
+  });
+  const data = await res.json() as { access_token: string };
+  return data.access_token;
+}
+
+async function sendThankYou(env: Env, to: string, firstName: string) {
+  try {
+    const token = await getZohoAccessToken(env);
+    await fetch(`https://mail.zoho.com/api/accounts/${env.ZOHO_ACCOUNT_ID}/messages`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Zoho-oauthtoken ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        fromAddress: 'info@opendrap.website',
+        toAddress: to,
+        subject: 'Thanks for contacting OpenDRAP!',
+        content: `<p>Hi ${firstName},</p><p>Thank you for reaching out to <strong>OpenDRAP</strong>. We've received your message and will get back to you shortly.</p><p>Best regards,<br/>The OpenDRAP Team</p>`,
+        mailFormat: 'html',
+      }),
+    });
+  } catch (err) {
+    console.error('Failed to send thank-you email:', err);
   }
 }

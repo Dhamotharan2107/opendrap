@@ -11,31 +11,31 @@ import { Mail, Phone, MapPin, Clock, CheckCircle2, ArrowRight } from "lucide-rea
 import { useContactForm } from "../../hooks/useContactForm";
 import { LoadingSpinner } from "../../components/common/LoadingSpinner";
 
-const P  = "#1E90FF";   // primary blue
-const A  = "#00FFC6";   // accent cyan
+const P = "#1E90FF";   // primary blue
+const A = "#00FFC6";   // accent cyan
 const BG = "#0B0F1A";   // dark navy
-const S  = "#111827";   // surface card
+const S = "#111827";   // surface card
 
 const contactCards = [
-  { icon: Mail,   title: "Email Us",       content: "office.opendrap@gmail.com", description: "We'll respond within 24 hours", grad: `linear-gradient(135deg, ${P}, ${A})` },
-  { icon: Phone,  title: "Call Us",        content: "8072620523",                description: "Mon-Sat, 9am-7pm IST",          grad: "linear-gradient(135deg, #8b5cf6, #a78bfa)" },
-  { icon: MapPin, title: "Visit Us",       content: "Chennai",                   description: "Tamil Nadu, India",             grad: "linear-gradient(135deg, #10b981, #34d399)" },
-  { icon: Clock,  title: "Support Hours",  content: "24/7 Support",              description: "AI platform always on",         grad: "linear-gradient(135deg, #f59e0b, #fbbf24)" },
+  { icon: Mail, title: "Email Us", content: "info@opendrap.website", description: "We'll respond within 24 hours", grad: `linear-gradient(135deg, ${P}, ${A})` },
+  { icon: Phone, title: "Call Us", content: "8072620523", description: "Mon-Sat, 9am-7pm IST", grad: "linear-gradient(135deg, #8b5cf6, #a78bfa)" },
+  { icon: MapPin, title: "Visit Us", content: "Chennai", description: "Tamil Nadu, India", grad: "linear-gradient(135deg, #10b981, #34d399)" },
+  { icon: Clock, title: "Support Hours", content: "24/7 Support", description: "AI platform always on", grad: "linear-gradient(135deg, #f59e0b, #fbbf24)" },
 ];
 
 const whyUs = [
-  { emoji: "⚡", title: "24-Hour Response",    desc: "We start your audit within 24 hours of contact — no waiting weeks for a quote." },
-  { emoji: "🔒", title: "Zero Risk Trial",     desc: "7 days free, no credit card, no contract. You only pay if you love the results." },
+  { emoji: "⚡", title: "24-Hour Response", desc: "We start your audit within 24 hours of contact — no waiting weeks for a quote." },
+  { emoji: "🔒", title: "Zero Risk Trial", desc: "7 days free, no credit card, no contract. You only pay if you love the results." },
   { emoji: "🤖", title: "Real AI, Real Results", desc: "Our WhatsApp AI agents handle thousands of conversations daily with 98%+ resolution." },
-  { emoji: "📍", title: "Chennai-Based Team",  desc: "Local developers who understand Indian businesses, available Mon–Sat 9am–7pm IST." },
+  { emoji: "📍", title: "Chennai-Based Team", desc: "Local developers who understand Indian businesses, available Mon–Sat 9am–7pm IST." },
   { emoji: "📈", title: "Measurable Outcomes", desc: "Every engagement comes with a monthly progress report showing exactly what improved." },
 ];
 
 export const Contact: React.FC = () => {
-  const { formData, isSubmitting, submitted, submitError, handleChange, handleSubmit } = useContactForm();
+  const { formData, errors, isSubmitting, submitted, submitError, handleChange, handleSubmit } = useContactForm();
 
   const breadcrumbSchema = generateBreadcrumbSchema([
-    { name: "Home",    url: SEO_CONFIG.siteUrl },
+    { name: "Home", url: SEO_CONFIG.siteUrl },
     { name: "Contact", url: `${SEO_CONFIG.siteUrl}/contact` },
   ]);
 
@@ -113,48 +113,52 @@ export const Contact: React.FC = () => {
                     <form onSubmit={handleSubmit} className="space-y-5">
                       <div className="grid grid-cols-2 gap-4">
                         {[
-                          { id: "firstName", label: "First Name *", placeholder: "Rajesh", required: true },
-                          { id: "lastName",  label: "Last Name *",  placeholder: "Kumar",  required: true },
-                        ].map(({ id, label, placeholder, required }) => (
-                          <div key={id} className="space-y-2">
+                          { id: "firstName", label: "First Name *", placeholder: "Rajesh" },
+                          { id: "lastName", label: "Last Name *", placeholder: "Kumar" },
+                        ].map(({ id, label, placeholder }) => (
+                          <div key={id} className="space-y-1">
                             <Label htmlFor={id} className="text-sm font-medium" style={{ color: "#B0B0B0" }}>{label}</Label>
                             <Input
                               id={id}
                               placeholder={placeholder}
                               value={formData[id as keyof typeof formData]}
                               onChange={e => handleChange(id, e.target.value)}
-                              required={required}
                               className="h-11 rounded-xl border text-white placeholder:text-white/25 focus-visible:ring-1"
-                              style={{ background: "rgba(255,255,255,0.05)", borderColor: "rgba(30,144,255,0.2)", "--tw-ring-color": A } as React.CSSProperties}
+                              style={{ background: "rgba(255,255,255,0.05)", borderColor: errors[id as keyof typeof errors] ? "rgba(239,68,68,0.6)" : "rgba(30,144,255,0.2)", "--tw-ring-color": A } as React.CSSProperties}
                             />
+                            {errors[id as keyof typeof errors] && <p className="text-xs text-red-400">{errors[id as keyof typeof errors]}</p>}
                           </div>
                         ))}
                       </div>
 
                       {[
-                        { id: "email",   label: "Email *",        type: "email", placeholder: "rajesh@company.com", required: true  },
-                        { id: "phone",   label: "Phone Number",   type: "tel",   placeholder: "+91 8072620523",      required: false },
-                        { id: "company", label: "Company",        type: "text",  placeholder: "Your Company Name",   required: false },
-                      ].map(({ id, label, type, placeholder, required }) => (
-                        <div key={id} className="space-y-2">
+                        { id: "email", label: "Email *", type: "email", placeholder: "rajesh@company.com" },
+                        { id: "phone", label: "Phone Number", type: "tel", placeholder: "8072620523" },
+                        { id: "company", label: "Company", type: "text", placeholder: "Your Company Name" },
+                      ].map(({ id, label, type, placeholder }) => (
+                        <div key={id} className="space-y-1">
                           <Label htmlFor={id} className="text-sm font-medium" style={{ color: "#B0B0B0" }}>{label}</Label>
                           <Input
                             id={id}
                             type={type}
                             placeholder={placeholder}
                             value={formData[id as keyof typeof formData]}
-                            onChange={e => handleChange(id, e.target.value)}
-                            required={required}
+                            onChange={e => {
+                              const val = id === 'phone' ? e.target.value.replace(/\D/g, '').slice(0, 10) : e.target.value;
+                              handleChange(id, val);
+                            }}
+                            maxLength={id === 'phone' ? 10 : undefined}
                             className="h-11 rounded-xl border text-white placeholder:text-white/25 focus-visible:ring-1"
-                            style={{ background: "rgba(255,255,255,0.05)", borderColor: "rgba(30,144,255,0.2)" }}
+                            style={{ background: "rgba(255,255,255,0.05)", borderColor: errors[id as keyof typeof errors] ? "rgba(239,68,68,0.6)" : "rgba(30,144,255,0.2)" }}
                           />
+                          {errors[id as keyof typeof errors] && <p className="text-xs text-red-400">{errors[id as keyof typeof errors]}</p>}
                         </div>
                       ))}
 
-                      <div className="space-y-2">
+                      <div className="space-y-1">
                         <Label htmlFor="inquiryType" className="text-sm font-medium" style={{ color: "#B0B0B0" }}>Inquiry Type *</Label>
-                        <Select value={formData.inquiryType} onValueChange={v => handleChange("inquiryType", v)} required>
-                          <SelectTrigger id="inquiryType" className="h-11 rounded-xl border text-white" style={{ background: "rgba(255,255,255,0.05)", borderColor: "rgba(30,144,255,0.2)" }}>
+                        <Select value={formData.inquiryType} onValueChange={v => handleChange("inquiryType", v)}>
+                          <SelectTrigger id="inquiryType" className="h-11 rounded-xl border text-white" style={{ background: "rgba(255,255,255,0.05)", borderColor: errors.inquiryType ? "rgba(239,68,68,0.6)" : "rgba(30,144,255,0.2)" }}>
                             <SelectValue placeholder="Select inquiry type" />
                           </SelectTrigger>
                           <SelectContent style={{ background: "#131929", borderColor: "rgba(30,144,255,0.2)" }}>
@@ -163,9 +167,10 @@ export const Contact: React.FC = () => {
                             ))}
                           </SelectContent>
                         </Select>
+                        {errors.inquiryType && <p className="text-xs text-red-400">{errors.inquiryType}</p>}
                       </div>
 
-                      <div className="space-y-2">
+                      <div className="space-y-1">
                         <Label htmlFor="message" className="text-sm font-medium" style={{ color: "#B0B0B0" }}>Message *</Label>
                         <Textarea
                           id="message"
@@ -173,10 +178,10 @@ export const Contact: React.FC = () => {
                           rows={5}
                           value={formData.message}
                           onChange={e => handleChange("message", e.target.value)}
-                          required
                           className="rounded-xl border text-white placeholder:text-white/25 resize-none focus-visible:ring-1"
-                          style={{ background: "rgba(255,255,255,0.05)", borderColor: "rgba(30,144,255,0.2)" }}
+                          style={{ background: "rgba(255,255,255,0.05)", borderColor: errors.message ? "rgba(239,68,68,0.6)" : "rgba(30,144,255,0.2)" }}
                         />
+                        {errors.message && <p className="text-xs text-red-400">{errors.message}</p>}
                       </div>
 
                       {submitError && (
@@ -240,7 +245,7 @@ export const Contact: React.FC = () => {
                 <Phone className="h-5 w-5" />Call +91 807-262-0523
               </a>
               <a
-                href="mailto:office.opendrap@gmail.com"
+                href="mailto:info@opendrap.website"
                 className="inline-flex items-center justify-center gap-2 px-8 h-[52px] rounded-xl font-semibold text-white text-base transition-all duration-200"
                 style={{ border: `2px solid rgba(30,144,255,0.3)` }}
                 onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "rgba(30,144,255,0.1)"; (e.currentTarget as HTMLElement).style.borderColor = `rgba(0,255,198,0.5)`; }}
