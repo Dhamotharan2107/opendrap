@@ -15,17 +15,12 @@ import jwt
 load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), '..', '.env'))
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, origins=["https://opendrap.website", "https://www.opendrap.website", "http://localhost:5173"], supports_credentials=True)
 
 SECRET_KEY = os.environ.get('JWT_SECRET', 'dev-secret-change-in-production')
 JWT_EXP_HOURS = 8
 
-# ── Hardcoded developer credentials (move to DB/env for production) ──
-<<<<<<< HEAD
 DEV_EMAIL    = os.environ.get('DEV_EMAIL',    'developer@opendrap.ai')
-=======
-DEV_EMAIL = os.environ.get('DEV_EMAIL', 'developer@opendrap.ai')
->>>>>>> 291290953f81be83e74c9634b02b22f925ce4926
 DEV_PASSWORD = os.environ.get('DEV_PASSWORD', 'Qwerty@123')
 
 
@@ -42,7 +37,6 @@ def get_conn():
     )
 
 
-<<<<<<< HEAD
 # ── Table bootstraps ──────────────────────────────────────────────────
 
 def ensure_contact_table(cursor):
@@ -60,7 +54,6 @@ def ensure_contact_table(cursor):
         )
     """)
 
-# keep old name as alias so nothing breaks
 ensure_table = ensure_contact_table
 
 
@@ -73,25 +66,11 @@ def ensure_reviews_table(cursor):
             rating     TINYINT  NOT NULL DEFAULT 5,
             message    TEXT     NOT NULL,
             approved   TINYINT  NOT NULL DEFAULT 0,
-=======
-def ensure_table(cursor):
-    cursor.execute("""
-        CREATE TABLE IF NOT EXISTS contact_submissions (
-            id BIGINT PRIMARY KEY AUTO_INCREMENT,
-            first_name VARCHAR(100) NOT NULL,
-            last_name VARCHAR(100) NOT NULL,
-            email VARCHAR(255) NOT NULL,
-            phone VARCHAR(50),
-            company VARCHAR(255),
-            inquiry_type VARCHAR(100) NOT NULL,
-            message TEXT NOT NULL,
->>>>>>> 291290953f81be83e74c9634b02b22f925ce4926
             created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
         )
     """)
 
 
-<<<<<<< HEAD
 def ensure_clients_table(cursor):
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS clients (
@@ -105,15 +84,21 @@ def ensure_clients_table(cursor):
             created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
         )
     """)
-    # Add logo column if the table existed before this migration
     try:
         cursor.execute("ALTER TABLE clients ADD COLUMN logo MEDIUMTEXT NULL")
     except Exception:
-        pass  # column already exists — ignore
+        pass
 
 
-=======
->>>>>>> 291290953f81be83e74c9634b02b22f925ce4926
+# ── Helpers ───────────────────────────────────────────────────────────
+
+def _serialize_row(row: dict) -> dict:
+    for key, val in row.items():
+        if hasattr(val, 'isoformat'):
+            row[key] = val.isoformat()
+    return row
+
+
 # ── JWT helpers ───────────────────────────────────────────────────────
 
 def create_token(email: str) -> str:
@@ -141,29 +126,12 @@ def require_auth(f):
     return decorated
 
 
-<<<<<<< HEAD
-def _serialize_row(row: dict) -> dict:
-    """Convert datetime objects to ISO strings for JSON serialisation."""
-    for key, val in row.items():
-        if hasattr(val, 'isoformat'):
-            row[key] = val.isoformat()
-    return row
-
-
 # ── Auth ──────────────────────────────────────────────────────────────
 
 @app.post('/api/auth/login')
 def login():
     body     = request.get_json(silent=True) or {}
     email    = body.get('email', '').strip()
-=======
-# ── Auth routes ───────────────────────────────────────────────────────
-
-@app.post('/api/auth/login')
-def login():
-    body = request.get_json(silent=True) or {}
-    email = body.get('email', '').strip()
->>>>>>> 291290953f81be83e74c9634b02b22f925ce4926
     password = body.get('password', '')
 
     if email == DEV_EMAIL and password == DEV_PASSWORD:
@@ -175,11 +143,7 @@ def login():
 @app.get('/api/auth/me')
 @require_auth
 def me():
-<<<<<<< HEAD
     token   = request.headers['Authorization'].split(' ', 1)[1]
-=======
-    token = request.headers['Authorization'].split(' ', 1)[1]
->>>>>>> 291290953f81be83e74c9634b02b22f925ce4926
     payload = jwt.decode(token, SECRET_KEY, algorithms=['HS256'])
     return jsonify({'ok': True, 'email': payload['sub']})
 
@@ -198,19 +162,32 @@ def health():
 
 # ── Contact ───────────────────────────────────────────────────────────
 
+def send_thank_you(to, first_name):
+    try:
+        msg = MIMEText(
+            f"<p>Hi {first_name},</p>"
+            "<p>Thank you for reaching out to <strong>OpenDRAP</strong>. "
+            "We've received your message and will get back to you shortly.</p>"
+            "<p>Best regards,<br/>The OpenDRAP Team</p>",
+            'html'
+        )
+        msg['Subject'] = 'Thanks for contacting OpenDRAP!'
+        msg['From']    = 'info@opendrap.website'
+        msg['To']      = to
+        with smtplib.SMTP_SSL('smtppro.zoho.in', 465) as server:
+            server.login('info@opendrap.website', 'Opendrap@dev2026')
+            server.send_message(msg)
+    except Exception as e:
+        print(f'Failed to send thank-you email: {e}')
+
+
 @app.get('/api/contact')
 @require_auth
 def get_contacts():
     try:
-<<<<<<< HEAD
         conn   = get_conn()
         cursor = conn.cursor(dictionary=True)
         ensure_contact_table(cursor)
-=======
-        conn = get_conn()
-        cursor = conn.cursor(dictionary=True)
-        ensure_table(cursor)
->>>>>>> 291290953f81be83e74c9634b02b22f925ce4926
         cursor.execute("""
             SELECT id,
                    first_name  AS firstName,
@@ -222,39 +199,11 @@ def get_contacts():
             FROM contact_submissions
             ORDER BY created_at DESC
         """)
-<<<<<<< HEAD
         rows = [_serialize_row(r) for r in cursor.fetchall()]
         cursor.close(); conn.close()
-=======
-        rows = cursor.fetchall()
-        for row in rows:
-            if row.get('createdAt'):
-                row['createdAt'] = row['createdAt'].isoformat()
-        cursor.close()
-        conn.close()
->>>>>>> 291290953f81be83e74c9634b02b22f925ce4926
         return jsonify({'ok': True, 'data': rows})
     except Exception as e:
         return jsonify({'error': 'Failed to fetch submissions', 'details': str(e)}), 500
-
-
-def send_thank_you(to, first_name):
-    try:
-        msg = MIMEText(
-            f"<p>Hi {first_name},</p>"
-            "<p>Thank you for reaching out to <strong>OpenDRAP</strong>. "
-            "We've received your message and will get back to you shortly.</p>"
-            "<p>Best regards,<br/>The OpenDRAP Team</p>",
-            'html'
-        )
-        msg['Subject'] = 'Thanks for contacting OpenDRAP!'
-        msg['From'] = 'info@opendrap.website'
-        msg['To'] = to
-        with smtplib.SMTP_SSL('smtppro.zoho.in', 465) as server:
-            server.login('info@opendrap.website', 'Opendrap@dev2026')
-            server.send_message(msg)
-    except Exception as e:
-        print(f'Failed to send thank-you email: {e}')
 
 
 @app.post('/api/contact')
@@ -288,12 +237,10 @@ def post_contact():
         return jsonify({'error': 'Failed to save submission', 'details': str(e)}), 500
 
 
-<<<<<<< HEAD
 # ── Reviews ───────────────────────────────────────────────────────────
 
 @app.post('/api/reviews')
 def submit_review():
-    """Public — submit a new review (stored unapproved until admin approves)."""
     body    = request.get_json(silent=True) or {}
     name    = body.get('name',    '').strip()
     role    = body.get('role',    '').strip()
@@ -320,7 +267,6 @@ def submit_review():
 
 @app.get('/api/reviews/public')
 def get_reviews_public():
-    """Public — approved reviews only (shown on home page)."""
     try:
         conn   = get_conn()
         cursor = conn.cursor(dictionary=True)
@@ -342,7 +288,6 @@ def get_reviews_public():
 @app.get('/api/reviews')
 @require_auth
 def get_reviews_all():
-    """Admin — all reviews with approval status."""
     try:
         conn   = get_conn()
         cursor = conn.cursor(dictionary=True)
@@ -362,7 +307,6 @@ def get_reviews_all():
 @app.route('/api/reviews/<int:review_id>/approve', methods=['PATCH'])
 @require_auth
 def approve_review(review_id):
-    """Admin — approve or unapprove a review."""
     body     = request.get_json(silent=True) or {}
     approved = 1 if body.get('approved') else 0
     try:
@@ -379,7 +323,6 @@ def approve_review(review_id):
 @app.delete('/api/reviews/<int:review_id>')
 @require_auth
 def delete_review(review_id):
-    """Admin — permanently delete a review."""
     try:
         conn   = get_conn()
         cursor = conn.cursor()
@@ -396,7 +339,6 @@ def delete_review(review_id):
 @app.get('/api/clients')
 @require_auth
 def get_clients():
-    """Admin — list all clients."""
     try:
         conn   = get_conn()
         cursor = conn.cursor(dictionary=True)
@@ -417,13 +359,12 @@ def get_clients():
 @app.post('/api/clients')
 @require_auth
 def add_client():
-    """Admin — add a new client (logo stored as base64 data-URL)."""
     body     = request.get_json(silent=True) or {}
     name     = body.get('name',     '').strip()
     company  = body.get('company',  '').strip()
     industry = body.get('industry', '').strip()
     website  = body.get('website',  '').strip()
-    logo     = body.get('logo',     None)   # base64 data-URL string or None
+    logo     = body.get('logo',     None)
     notes    = body.get('notes',    '').strip()
 
     if not name:
@@ -447,7 +388,6 @@ def add_client():
 @app.delete('/api/clients/<int:client_id>')
 @require_auth
 def delete_client(client_id):
-    """Admin — permanently delete a client."""
     try:
         conn   = get_conn()
         cursor = conn.cursor()
@@ -461,8 +401,6 @@ def delete_client(client_id):
 
 # ── Entry point ───────────────────────────────────────────────────────
 
-=======
->>>>>>> 291290953f81be83e74c9634b02b22f925ce4926
 if __name__ == '__main__':
     port = int(os.environ.get('API_PORT', 4001))
     app.run(port=port, debug=True)
