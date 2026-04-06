@@ -64,14 +64,11 @@ export const Footer: React.FC = () => {
           {/* Brand */}
           <div className="lg:col-span-4">
             <Link to="/" className="inline-flex items-center gap-3 mb-5 group">
-              <div
-                className="w-11 h-11 rounded-xl flex items-center justify-center transition-all duration-300"
-                style={{ background: "linear-gradient(135deg, #1E90FF, #00FFC6)" }}
-                onMouseEnter={e => (e.currentTarget as HTMLElement).style.boxShadow = "0 0 20px rgba(0,255,198,0.5)"}
-                onMouseLeave={e => (e.currentTarget as HTMLElement).style.boxShadow = "none"}
-              >
-                <span className="text-white font-extrabold text-xl">O</span>
-              </div>
+              <img
+                src="/logo.png"
+                alt={`${COMPANY_INFO.name} logo`}
+                className="w-14 h-14 object-contain transition-all duration-300"
+              />
               <span className="text-white font-extrabold text-xl tracking-tight">{COMPANY_INFO.name}</span>
             </Link>
             <p className="text-sm leading-relaxed mb-6 max-w-xs" style={{ color: "#B0B0B0" }}>

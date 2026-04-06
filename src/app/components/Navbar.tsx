@@ -63,24 +63,18 @@ export const Navbar: React.FC = () => {
               aria-label={`${COMPANY_INFO.name} Home`}
             >
               <div className="relative">
-                <div
-                  className="w-10 h-10 rounded-xl flex items-center justify-center shadow-md transition-all duration-300 group-hover:scale-105"
-                  style={{
-                    background: "linear-gradient(135deg, #1E90FF, #00FFC6)",
-                    boxShadow: "0 0 0 0 rgba(30,144,255,0.4)",
-                  }}
-                  onMouseEnter={e => (e.currentTarget as HTMLElement).style.boxShadow = "0 0 20px rgba(0,255,198,0.5)"}
-                  onMouseLeave={e => (e.currentTarget as HTMLElement).style.boxShadow = "0 0 0 0 rgba(30,144,255,0.4)"}
-                >
-                  <span className="font-black text-lg text-white" aria-hidden="true">O</span>
-                </div>
+                                <img
+                  src="/logo.png"
+                  alt={`${COMPANY_INFO.name} logo`}
+                  className="w-14 h-14 object-contain"
+                />
                 <div className="absolute -top-0.5 -right-0.5 w-3 h-3 bg-[#00FFC6] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-ping-slow" />
               </div>
               <div>
                 <span className="text-xl font-black tracking-tight text-white group-hover:text-[#00FFC6] transition-colors duration-300">
                   {COMPANY_INFO.name}
                 </span>
-                <div className="text-[10px] font-semibold tracking-widest uppercase leading-none -mt-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-[#1E90FF]">
+                <div className="text-[10px] font-semibold tracking-widest uppercase leading-none -mt-0.5 opacity-100 group-hover:text-[#1E90FF] transition-colors duration-300">
                   AI Platform
                 </div>
               </div>
