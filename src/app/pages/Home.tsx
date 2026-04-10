@@ -347,9 +347,9 @@ function HeroCarousel() {
         <div className="flex items-center justify-center gap-6 mt-14">
           <button
             onClick={goLeft}
-            className="w-10 h-10 rounded-full flex items-center justify-center text-white/60 hover:text-white transition-all duration-200"
+            className="w-12 h-12 rounded-full flex items-center justify-center text-white/60 hover:text-white transition-all duration-200"
             style={{ background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.12)" }}
-            aria-label="Previous"
+            aria-label="Previous slide"
           >
             <ChevronLeft className="h-5 w-5" />
           </button>
@@ -373,9 +373,9 @@ function HeroCarousel() {
 
           <button
             onClick={next}
-            className="w-10 h-10 rounded-full flex items-center justify-center text-white/60 hover:text-white transition-all duration-200"
+            className="w-12 h-12 rounded-full flex items-center justify-center text-white/60 hover:text-white transition-all duration-200"
             style={{ background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.12)" }}
-            aria-label="Next"
+            aria-label="Next slide"
           >
             <ChevronRight className="h-5 w-5" />
           </button>
@@ -507,6 +507,7 @@ const homeWorks = [
     glow: "rgba(13,148,136,0.4)",
     accentColor: "#0d9488",
     mockupBg: "linear-gradient(135deg, #0f2027, #134e4a, #0d9488)",
+    previewImg: "/preview-dental.png",
     features: ["Online appointment booking", "Admin dashboard + analytics", "Live AI chatbot assistant"],
   },
   {
@@ -522,6 +523,7 @@ const homeWorks = [
     glow: "rgba(245,158,11,0.35)",
     accentColor: "#f59e0b",
     mockupBg: "linear-gradient(135deg, #1c1200, #451a03, #f59e0b)",
+    previewImg: "/preview-tvrepair.png",
     features: ["Service listings with pricing", "Lead capture contact form", "Local SEO optimised"],
   },
   {
@@ -537,6 +539,7 @@ const homeWorks = [
     glow: "rgba(30,144,255,0.35)",
     accentColor: "#1E90FF",
     mockupBg: "linear-gradient(135deg, #000d1a, #001f3f, #1E90FF)",
+    previewImg: "/preview-digistore.png",
     features: ["Digital product listings", "Personalised user greetings", "Fast & lightweight build"],
   },
 ];
@@ -557,16 +560,15 @@ function WorkMockup({ work }: { work: typeof homeWorks[0] }) {
           <ExternalLink className="h-3 w-3" style={{ color: "#6b7280" }} />
         </a>
       </div>
-      {/* Viewport — always live */}
+      {/* Viewport — screenshot */}
       <div className="relative overflow-hidden" style={{ height: "300px" }}>
-        <iframe
-          src={work.url}
-          title={`${work.title} preview`}
-          className="border-0"
-          style={{ width: "200%", height: "600px", transform: "scale(0.5)", transformOrigin: "top left" }}
+        <img
+          src={work.previewImg}
+          alt={`${work.title} website preview`}
+          className="w-full h-full object-cover object-top"
           loading="lazy"
-          sandbox="allow-scripts allow-same-origin"
         />
+        <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, transparent 70%, rgba(0,0,0,0.4) 100%)" }} />
       </div>
     </div>
   );
@@ -737,7 +739,7 @@ export function Home() {
                       onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = A}
                       onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = P}
                     >
-                      Learn more <ChevronRight className="h-4 w-4 group-hover/link:translate-x-1 transition-transform" />
+                      Learn more about {feature.title} <ChevronRight className="h-4 w-4 group-hover/link:translate-x-1 transition-transform" />
                     </Link>
                   </div>
                 </AnimatedSection>

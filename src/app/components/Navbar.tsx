@@ -62,9 +62,12 @@ export const Navbar: React.FC = () => {
               className="flex items-center space-x-3 group"
             >
               <div className="relative">
-                                <img
+                <img
                   src="/logo.png"
-                  alt={`${COMPANY_INFO.name} logo`}
+                  alt={`${COMPANY_INFO.name} — AI Platform logo`}
+                  width={56}
+                  height={56}
+                  fetchPriority="high"
                   className="w-14 h-14 object-contain"
                 />
                 <div className="absolute -top-0.5 -right-0.5 w-3 h-3 bg-[#00FFC6] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-ping-slow" />

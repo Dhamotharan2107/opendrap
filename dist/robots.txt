@@ -1,16 +1,26 @@
 # robots.txt for OPENDRAP
-# Allow all search engines to crawl the site
 
 User-agent: *
 Allow: /
-
-# Disallow admin and API routes
 Disallow: /api/
 Disallow: /developer/
 Disallow: /admin/
 
-# Sitemap location
-Sitemap: https://opendrap.website/sitemap.xml
+# AI crawlers — explicitly allowed
+User-agent: GPTBot
+Allow: /
 
-# Crawl-delay for polite crawling
+User-agent: Google-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+Sitemap: https://opendrap.website/sitemap.xml
 Crawl-delay: 1

@@ -38,6 +38,7 @@ const works = [
     stack: ["React", "Tailwind CSS", "AI Chatbot"],
     mockupBg: "linear-gradient(135deg, #0f2027, #134e4a, #0d9488)",
     mockupAccent: "#14b8a6",
+    previewImg: "/preview-dental.png",
   },
   {
     id: "tv-repair",
@@ -62,6 +63,7 @@ const works = [
     stack: ["React", "Tailwind CSS", "SEO"],
     mockupBg: "linear-gradient(135deg, #1c1200, #451a03, #f59e0b)",
     mockupAccent: "#fbbf24",
+    previewImg: "/preview-tvrepair.png",
   },
   {
     id: "digistore",
@@ -86,6 +88,7 @@ const works = [
     stack: ["React", "Tailwind CSS", "Vite"],
     mockupBg: `linear-gradient(135deg, #000d1a, #001f3f, ${P})`,
     mockupAccent: "#00B9F1",
+    previewImg: "/preview-digistore.png",
   },
 ];
 
@@ -106,16 +109,15 @@ function BrowserMockup({ work }: { work: typeof works[0] }) {
           <ExternalLink className="h-3.5 w-3.5" style={{ color: "#6b7280" }} />
         </a>
       </div>
-      {/* Viewport — always live */}
+      {/* Viewport — screenshot */}
       <div className="relative overflow-hidden" style={{ height: "380px" }}>
-        <iframe
-          src={work.url}
-          title={`${work.title} preview`}
-          className="border-0"
-          style={{ height: "760px", transform: "scale(0.5)", transformOrigin: "top left", width: "200%" }}
+        <img
+          src={work.previewImg}
+          alt={`${work.title} website preview`}
+          className="w-full h-full object-cover object-top"
           loading="lazy"
-          sandbox="allow-scripts allow-same-origin"
         />
+        <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.5) 100%)" }} />
       </div>
     </div>
   );

@@ -64,10 +64,12 @@ export const Footer: React.FC = () => {
 
           {/* Brand */}
           <div className="lg:col-span-4">
-            <Link to="/" className="inline-flex items-center gap-3 mb-5 group">
+            <Link to="/" aria-label="OPENDRAP home page" className="inline-flex items-center gap-3 mb-5 group">
               <img
                 src="/logo.png"
-                alt={`${COMPANY_INFO.name} logo`}
+                alt="OPENDRAP — AI Platform logo"
+                width={56}
+                height={56}
                 className="w-14 h-14 object-contain transition-all duration-300"
               />
               <span className="text-white font-extrabold text-xl tracking-tight">{COMPANY_INFO.name}</span>
