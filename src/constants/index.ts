@@ -8,6 +8,7 @@ export const NAV_LINKS = [
   { name: 'Home', path: '/' },
   { name: 'About', path: '/about' },
   { name: 'Products', path: '/products' },
+  { name: 'Our Work', path: '/our-work' },
   { name: 'Pricing', path: '/pricing' },
   { name: 'Contact', path: '/contact' },
 ] as const;

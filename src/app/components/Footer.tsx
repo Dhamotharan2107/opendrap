@@ -50,8 +50,9 @@ export const Footer: React.FC = () => {
               to="/contact"
               className="flex-shrink-0 inline-flex items-center gap-2 px-8 py-4 rounded-xl font-bold text-white text-base transition-all duration-300 magnetic-btn"
               style={{ background: "linear-gradient(135deg, #1E90FF, #00FFC6)", boxShadow: "0 0 24px rgba(30,144,255,0.4)" }}
+              aria-label="Start Free Trial — contact OPENDRAP"
             >
-              Start Free Trial <ArrowRight className="h-4 w-4" />
+              Start Free Trial <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Link>
           </div>
         </div>

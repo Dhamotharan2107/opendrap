@@ -6,7 +6,8 @@ import {
   MessageSquare, Globe, Smartphone, Bot, Zap,
   CheckCircle2, ArrowRight, Code2, TrendingUp,
   Play, ChevronRight, ChevronLeft,
-  BarChart3, Shield, Clock,
+  BarChart3, Shield, Clock, Star, Quote,
+  Stethoscope, Tv, ShoppingBag, ExternalLink,
 } from "lucide-react";
 import { AnimatedSection, useInView } from "../../components/common/AnimatedSection";
 
@@ -14,17 +15,17 @@ import { AnimatedSection, useInView } from "../../components/common/AnimatedSect
    Page data
 ────────────────────────────────────────── */
 const features = [
-  { id: "whatsapp-ai", icon: MessageSquare, title: "WhatsApp AI Agent", description: "Deploy intelligent AI agents on WhatsApp that handle customer queries, process orders, and provide 24/7 support — fully automated.", badge: "Most Popular", color: "from-[#25D366] to-[#128C7E]" },
-  { id: "website-dev", icon: Globe, title: "Website Development", description: "Modern, fast, SEO-optimized websites. Start with our 7-day free trial — we audit & fix your existing site at zero cost.", badge: "7-Day Trial", color: "from-blue-500 to-blue-700" },
-  { id: "mobile-apps", icon: Smartphone, title: "Mobile App Development", description: "Native iOS & Android apps and cross-platform solutions that deliver exceptional experiences and drive measurable business growth.", color: "from-orange-500 to-orange-600" },
-  { id: "chatbot", icon: Bot, title: "AI Chatbot Platform", description: "Multi-channel intelligent chatbots for web, app & social platforms. Engage visitors, capture leads, and convert 24/7.", color: "from-[#002E6E] to-[#004fa3]" },
-  { id: "automation", icon: Zap, title: "Business Automation", description: "End-to-end workflow automation that eliminates repetitive tasks, reduces costs, and lets your team focus on what matters.", color: "from-yellow-500 to-amber-600" },
+  { id: "whatsapp-ai", icon: MessageSquare, title: "WhatsApp Chatbot", description: "Put a smart chatbot on WhatsApp that answers questions, takes orders, and supports customers around the clock — no staff needed.", badge: "Most Popular", color: "from-[#25D366] to-[#128C7E]" },
+  { id: "website-dev", icon: Globe, title: "Website Development", description: "Fast, modern, SEO-ready websites. We audit and fix your current site at no charge during the 7-day trial.", badge: "7-Day Trial", color: "from-blue-500 to-blue-700" },
+  { id: "mobile-apps", icon: Smartphone, title: "Mobile App Development", description: "iOS and Android apps built for real users. We focus on speed, usability, and results that matter to your customers.", color: "from-orange-500 to-orange-600" },
+  { id: "chatbot", icon: Bot, title: "Chatbot Platform", description: "Smart chatbots for your website, app, and social pages. Capture leads and help visitors 24/7 without extra staff.", color: "from-[#002E6E] to-[#004fa3]" },
+  { id: "automation", icon: Zap, title: "Workflow Automation", description: "Cut out repetitive tasks with automated workflows. Your team saves time and your operations run smoother.", color: "from-yellow-500 to-amber-600" },
 ];
 
 const steps = [
-  { num: "01", icon: Code2, title: "Contact & Audit", description: "Tell us about your website or business. Our developers start a full technical audit within 24 hours — at zero cost." },
-  { num: "02", icon: Zap, title: "7-Day Free Trial", description: "We fix critical bugs, boost performance, and show you real results in 7 days. No credit card. No commitment. Zero risk." },
-  { num: "03", icon: TrendingUp, title: "Scale & Grow", description: "Love the results? Continue at ₹8,999/month for ongoing AI integration, maintenance, and business automation." },
+  { num: "01", icon: Code2, title: "Contact & Audit", description: "Tell us about your site or product. Our team runs a full technical audit within 24 hours at no charge." },
+  { num: "02", icon: Zap, title: "7-Day Trial", description: "We fix bugs, improve speed, and show you real results in 7 days. No card needed, no commitment." },
+  { num: "03", icon: TrendingUp, title: "Scale & Grow", description: "Happy with the results? Keep going at ₹8,999/month — includes maintenance, automation, and ongoing support." },
 ];
 
 /* ──────────────────────────────────────────
@@ -41,12 +42,12 @@ function SlideWhatsApp({ on }: { on: boolean }) {
           WhatsApp AI Platform — Now Live
         </Badge>
         <h1 className="text-5xl lg:text-6xl xl:text-[4.5rem] font-black text-white mb-6 leading-[1.04] tracking-tight">
-          Automate Your Business with{" "}
-          <span className="animate-shimmer">AI Agents</span>
+          Put Your Customer Support{" "}
+          <span className="animate-shimmer">on Autopilot</span>
         </h1>
         <p className="text-lg lg:text-xl text-white/60 mb-10 max-w-lg leading-relaxed">
-          Deploy WhatsApp AI agents that handle customer conversations, process orders,
-          and provide <span className="text-[#00B9F1] font-semibold">24/7 instant support</span> — all without any human intervention.
+          A WhatsApp chatbot that answers questions, handles orders, and supports customers
+          <span className="text-[#00B9F1] font-semibold"> around the clock</span> — with no extra staff.
         </p>
         <div className="flex flex-col sm:flex-row gap-4">
           <Button size="lg" className="bg-gradient-to-r from-[#002E6E] to-[#00B9F1] hover:from-[#001f4d] hover:to-[#0099cc] text-white font-bold px-8 h-[52px] shadow-[0_0_30px_rgba(0,185,241,0.4)] hover:shadow-[0_0_50px_rgba(0,185,241,0.6)] transition-all duration-300 magnetic-btn" asChild>
@@ -173,8 +174,8 @@ function SlideWebsite({ on }: { on: boolean }) {
           </span>
         </h1>
         <p className="text-lg lg:text-xl text-white/60 mb-10 max-w-lg leading-relaxed">
-          Our developers audit your site, fix critical bugs, boost speed to 90+, and improve SEO.
-          <span className="text-[#00B9F1] font-semibold"> Zero cost. Zero commitment.</span> See results first.
+          Our team audits your site, fixes bugs, and boosts speed to 90+ in 7 days.
+          <span className="text-[#00B9F1] font-semibold"> No charge. No commitment.</span> See results first.
         </p>
         <div className="flex flex-col sm:flex-row gap-4">
           <Button size="lg" className="font-bold px-8 h-[52px] transition-all duration-300 magnetic-btn" style={{ background: "linear-gradient(135deg, #0284c7, #00B9F1)", boxShadow: "0 0 30px rgba(0,185,241,0.4)" }} asChild>
@@ -402,6 +403,289 @@ const BG  = "#0B0F1A";
 const S   = "#111827";
 const S2  = "#0d1526";
 
+/* ──────────────────────────────────────────
+   Reviews Section
+────────────────────────────────────────── */
+interface Review {
+  id: number;
+  name: string;
+  role: string | null;
+  rating: number;
+  message: string;
+}
+
+const BASE = import.meta.env.VITE_API_URL ?? "";
+
+function StarRating({ rating }: { rating: number }) {
+  return (
+    <div className="flex gap-0.5">
+      {[1,2,3,4,5].map((s) => (
+        <Star key={s} className="h-4 w-4" style={{ color: s <= rating ? "#f59e0b" : "rgba(255,255,255,0.15)", fill: s <= rating ? "#f59e0b" : "rgba(255,255,255,0.08)" }} />
+      ))}
+    </div>
+  );
+}
+
+function ReviewsSection() {
+  const [reviews, setReviews] = useState<Review[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch(`${BASE}/api/reviews/public`)
+      .then((r) => r.json())
+      .then((d) => { if (d.ok) setReviews(d.data); })
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, []);
+
+  if (!loading && reviews.length === 0) return null;
+
+  return (
+    <section className="py-28" style={{ background: S2 }}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <AnimatedSection className="text-center mb-16">
+          <Badge className="mb-4 text-sm px-4 py-1.5 border font-semibold" style={{ background: `rgba(30,144,255,0.10)`, borderColor: `rgba(30,144,255,0.2)`, color: A }}>Client Reviews</Badge>
+          <h2 className="text-4xl md:text-5xl font-black text-white mb-5 tracking-tight">What Our Clients Say</h2>
+          <p className="text-xl max-w-2xl mx-auto" style={{ color: "#B0B0B0" }}>Real feedback from businesses we've helped grow.</p>
+        </AnimatedSection>
+
+        {loading ? (
+          <div className="flex justify-center py-12">
+            <span className="w-8 h-8 border-2 border-white/20 border-t-[#00B9F1] rounded-full animate-spin" />
+          </div>
+        ) : (
+          <div className={`grid gap-6 ${
+            reviews.length === 1 ? "max-w-md mx-auto" :
+            reviews.length === 2 ? "md:grid-cols-2 max-w-2xl mx-auto" :
+            "md:grid-cols-2 lg:grid-cols-3"
+          }`}>
+            {reviews.map((review, i) => (
+              <AnimatedSection key={review.id} delay={`delay-${(i % 3) * 100}`}>
+                <div
+                  className="rounded-2xl p-7 h-full flex flex-col gap-4"
+                  style={{ background: S, border: "1px solid rgba(30,144,255,0.12)" }}
+                >
+                  <Quote className="h-6 w-6 opacity-30" style={{ color: A }} />
+                  <p className="text-sm leading-relaxed flex-1" style={{ color: "#B0B0B0" }}>{review.message}</p>
+                  <div className="flex items-center justify-between pt-2 border-t" style={{ borderColor: "rgba(255,255,255,0.07)" }}>
+                    <div>
+                      <div className="text-white font-bold text-sm">{review.name}</div>
+                      {review.role && <div className="text-xs mt-0.5" style={{ color: "#6b7280" }}>{review.role}</div>}
+                    </div>
+                    <StarRating rating={review.rating} />
+                  </div>
+                </div>
+              </AnimatedSection>
+            ))}
+          </div>
+        )}
+
+        <AnimatedSection className="text-center mt-12">
+          <Link to="/submit-review" className="inline-flex items-center gap-2 text-sm font-semibold transition-colors" style={{ color: A }}>
+            Share your experience <ChevronRight className="h-4 w-4" />
+          </Link>
+        </AnimatedSection>
+      </div>
+    </section>
+  );
+}
+
+/* ──────────────────────────────────────────
+   Our Work Preview
+────────────────────────────────────────── */
+const homeWorks = [
+  {
+    id: "dental-clinic",
+    icon: Stethoscope,
+    tag: "Healthcare",
+    tagColor: "#0d9488",
+    title: "The Tooth Fairy",
+    subtitle: "Premium Family Dental Clinic",
+    description: "Full-featured dental clinic site with online booking, patient blog, admin analytics dashboard, and a live AI chatbot — all in one polished product.",
+    url: "https://toothfairy-opendrap.pages.dev/",
+    gradient: "linear-gradient(135deg, #0d9488, #0f766e)",
+    glow: "rgba(13,148,136,0.4)",
+    accentColor: "#0d9488",
+    mockupBg: "linear-gradient(135deg, #0f2027, #134e4a, #0d9488)",
+    features: ["Online appointment booking", "Admin dashboard + analytics", "Live AI chatbot assistant"],
+  },
+  {
+    id: "tv-repair",
+    icon: Tv,
+    tag: "Local Business",
+    tagColor: "#f59e0b",
+    title: "TV Repair Service",
+    subtitle: "Local Electronics Repair Website",
+    description: "Conversion-focused site for a local TV repair shop. Built to rank locally, capture leads, and build trust with a clean professional design.",
+    url: "https://tv-repair-site.pages.dev/",
+    gradient: "linear-gradient(135deg, #f59e0b, #d97706)",
+    glow: "rgba(245,158,11,0.35)",
+    accentColor: "#f59e0b",
+    mockupBg: "linear-gradient(135deg, #1c1200, #451a03, #f59e0b)",
+    features: ["Service listings with pricing", "Lead capture contact form", "Local SEO optimised"],
+  },
+  {
+    id: "digistore",
+    icon: ShoppingBag,
+    tag: "E-Commerce",
+    tagColor: "#1E90FF",
+    title: "DigiStore",
+    subtitle: "Digital Products Storefront",
+    description: "Modern digital storefront for selling products online. Clean UI, fast checkout flow, and a personalised user greeting system.",
+    url: "https://digistore.pages.dev/",
+    gradient: "linear-gradient(135deg, #1E90FF, #00B9F1)",
+    glow: "rgba(30,144,255,0.35)",
+    accentColor: "#1E90FF",
+    mockupBg: "linear-gradient(135deg, #000d1a, #001f3f, #1E90FF)",
+    features: ["Digital product listings", "Personalised user greetings", "Fast & lightweight build"],
+  },
+];
+
+function WorkMockup({ work }: { work: typeof homeWorks[0] }) {
+  return (
+    <div className="rounded-2xl overflow-hidden shadow-2xl" style={{ background: "#1a1f2e", border: "1px solid rgba(255,255,255,0.08)" }}>
+      {/* Browser chrome */}
+      <div className="flex items-center gap-2 px-4 py-2.5" style={{ background: "#0f1219", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+        <span className="w-2.5 h-2.5 rounded-full bg-red-500/70" />
+        <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/70" />
+        <span className="w-2.5 h-2.5 rounded-full bg-green-500/70" />
+        <div className="flex-1 mx-2 px-3 py-0.5 rounded text-[10px] font-mono flex items-center gap-1.5" style={{ background: "rgba(255,255,255,0.05)", color: "#6b7280" }}>
+          <span className="w-1.5 h-1.5 rounded-full" style={{ background: work.accentColor }} />
+          {work.url.replace("https://", "")}
+        </div>
+        <a href={work.url} target="_blank" rel="noopener noreferrer" aria-label={`Open ${work.title}`}>
+          <ExternalLink className="h-3 w-3" style={{ color: "#6b7280" }} />
+        </a>
+      </div>
+      {/* Viewport — always live */}
+      <div className="relative overflow-hidden" style={{ height: "300px" }}>
+        <iframe
+          src={work.url}
+          title={`${work.title} preview`}
+          className="border-0"
+          style={{ width: "200%", height: "600px", transform: "scale(0.5)", transformOrigin: "top left" }}
+          loading="lazy"
+          sandbox="allow-scripts allow-same-origin"
+        />
+      </div>
+    </div>
+  );
+}
+
+function OurWorkPreview() {
+  const [active, setActive] = useState(0);
+  const work = homeWorks[active];
+
+  return (
+    <section className="py-28 relative overflow-hidden" style={{ background: "linear-gradient(135deg,#000d1a 0%,#001428 35%,#001f3f 70%,#002E6E 100%)" }}>
+      <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "radial-gradient(circle,rgba(0,185,241,0.05) 1px,transparent 1px)", backgroundSize: "32px 32px" }} />
+      <div className="absolute top-0 right-0 w-96 h-96 rounded-full blur-3xl pointer-events-none" style={{ background: "rgba(0,185,241,0.07)" }} />
+      <div className="absolute bottom-0 left-0 w-80 h-80 rounded-full blur-3xl pointer-events-none" style={{ background: "rgba(0,255,198,0.04)" }} />
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <AnimatedSection className="text-center mb-12">
+          <Badge className="mb-4 text-sm px-4 py-1.5 border font-semibold" style={{ background: "rgba(30,144,255,0.10)", borderColor: "rgba(30,144,255,0.2)", color: A }}>Our Work</Badge>
+          <h2 className="text-4xl md:text-5xl font-black text-white mb-4 tracking-tight">Real Sites We've Built</h2>
+          <p className="text-xl max-w-2xl mx-auto" style={{ color: "#B0B0B0" }}>Every project below is live. Click any tab to explore it.</p>
+        </AnimatedSection>
+
+        {/* Tab pills */}
+        <AnimatedSection className="flex flex-wrap gap-3 justify-center mb-10">
+          {homeWorks.map((w, i) => {
+            const Icon = w.icon;
+            const isActive = active === i;
+            return (
+              <button
+                key={w.id}
+                onClick={() => setActive(i)}
+                className="flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300"
+                style={{
+                  background: isActive ? w.gradient : "rgba(255,255,255,0.05)",
+                  color: isActive ? "#fff" : "#9ca3af",
+                  border: `1px solid ${isActive ? "transparent" : "rgba(255,255,255,0.08)"}`,
+                  boxShadow: isActive ? `0 0 20px ${w.glow}` : "none",
+                  transform: isActive ? "scale(1.05)" : "scale(1)",
+                }}
+              >
+                <Icon className="h-4 w-4" aria-hidden="true" />
+                {w.title}
+              </button>
+            );
+          })}
+        </AnimatedSection>
+
+        {/* Spotlight card */}
+        <AnimatedSection key={active}>
+          <div
+            className="rounded-3xl overflow-hidden"
+            style={{ background: S, border: `1px solid ${work.accentColor}25`, boxShadow: `0 0 80px ${work.glow}` }}
+          >
+            <div className="grid lg:grid-cols-2 gap-0">
+              {/* Left info */}
+              <div className="p-8 md:p-10 flex flex-col justify-center">
+                <div className="flex items-center gap-3 mb-5">
+                  <div className="w-11 h-11 rounded-2xl flex items-center justify-center shadow-lg" style={{ background: work.gradient }}>
+                    <work.icon className="h-5 w-5 text-white" />
+                  </div>
+                  <span className="text-xs font-bold px-3 py-1 rounded-full" style={{ background: `${work.accentColor}18`, color: work.accentColor, border: `1px solid ${work.accentColor}30` }}>
+                    {work.tag}
+                  </span>
+                </div>
+                <h3 className="text-2xl md:text-3xl font-black text-white mb-1">{work.title}</h3>
+                <p className="text-sm font-semibold mb-4" style={{ color: work.accentColor }}>{work.subtitle}</p>
+                <p className="text-sm leading-relaxed mb-6" style={{ color: "#B0B0B0" }}>{work.description}</p>
+                <ul className="space-y-2.5 mb-7">
+                  {work.features.map((f) => (
+                    <li key={f} className="flex items-center gap-2.5 text-sm" style={{ color: "#d1d5db" }}>
+                      <CheckCircle2 className="h-4 w-4 flex-shrink-0" style={{ color: work.accentColor }} />
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+                <div className="flex flex-wrap gap-3">
+                  <a
+                    href={work.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-bold text-white transition-all duration-200 hover:scale-105"
+                    style={{ background: work.gradient, boxShadow: `0 0 20px ${work.glow}` }}
+                  >
+                    View Live <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
+                  </a>
+                  <Link
+                    to="/our-work"
+                    className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 hover:bg-white/10"
+                    style={{ color: A, border: `1px solid ${A}30` }}
+                  >
+                    See All Work <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                  </Link>
+                </div>
+              </div>
+              {/* Right mockup */}
+              <div className="p-6 md:p-8 flex items-center" style={{ background: "rgba(0,0,0,0.2)" }}>
+                <div className="w-full">
+                  <WorkMockup work={work} />
+                </div>
+              </div>
+            </div>
+          </div>
+        </AnimatedSection>
+
+        {/* See all CTA */}
+        <AnimatedSection className="text-center mt-10">
+          <Link
+            to="/our-work"
+            className="inline-flex items-center gap-2 px-8 py-3 rounded-xl font-bold text-sm transition-all duration-200 hover:scale-105"
+            style={{ background: `linear-gradient(135deg, ${P}, ${A})`, color: "#0B0F1A", boxShadow: "0 0 24px rgba(30,144,255,0.35)" }}
+          >
+            View All Our Work <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          </Link>
+        </AnimatedSection>
+      </div>
+    </section>
+  );
+}
+
 export function Home() {
   return (
     <div style={{ background: BG }} className="overflow-x-hidden">
@@ -468,8 +752,8 @@ export function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-16">
             <Badge className="mb-4 text-sm px-4 py-1.5 border font-semibold" style={{ background: `rgba(30,144,255,0.10)`, borderColor: `rgba(30,144,255,0.2)`, color: A }}>Simple Process</Badge>
-            <h2 className="text-4xl md:text-5xl font-black text-white mb-5 tracking-tight">From Zero to Automated in Days</h2>
-            <p className="text-xl max-w-2xl mx-auto" style={{ color: "#B0B0B0" }}>No long onboarding. No hidden fees. Just results — starting from day one.</p>
+            <h2 className="text-4xl md:text-5xl font-black text-white mb-5 tracking-tight">Up and Running in Days</h2>
+            <p className="text-xl max-w-2xl mx-auto" style={{ color: "#B0B0B0" }}>Simple setup, no hidden fees, and real results from day one.</p>
           </AnimatedSection>
           <div className="grid md:grid-cols-3 gap-8 relative">
             <div className="hidden md:block absolute top-[52px] h-px" style={{ left: "calc(33.33% + 24px)", right: "calc(33.33% + 24px)", background: `linear-gradient(90deg, rgba(30,144,255,0.4), rgba(0,255,198,0.3), rgba(30,144,255,0.4))` }} />
@@ -503,42 +787,11 @@ export function Home() {
         </div>
       </section>
 
-      {/* Pricing teaser */}
-      <section className="py-28 relative overflow-hidden" style={{ background: "linear-gradient(135deg,#000d1a 0%,#001428 35%,#001f3f 70%,#002E6E 100%)" }}>
-        <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "radial-gradient(circle,rgba(0,185,241,0.06) 1px,transparent 1px)", backgroundSize: "32px 32px" }} />
-        <div className="absolute top-0 right-0 w-96 h-96 bg-[#00B9F1]/8 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-80 h-80 bg-[#00B9F1]/4 rounded-full blur-3xl pointer-events-none" />
-        <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimatedSection className="text-center mb-12">
-            <Badge className="mb-5 bg-[#00B9F1]/15 text-[#00B9F1] border border-[#00B9F1]/25 text-sm px-4 py-2">Simple Pricing</Badge>
-            <h2 className="text-4xl md:text-5xl font-black text-white mb-5 tracking-tight">One Plan. Everything Included.</h2>
-            <p className="text-xl text-white/50 max-w-2xl mx-auto">Start for free. No credit card. No commitment. Then continue at one flat monthly rate — no hidden fees.</p>
-          </AnimatedSection>
-          <AnimatedSection>
-            <div className="bg-white/6 backdrop-blur-xl border border-white/10 rounded-3xl p-8 md:p-12 max-w-2xl mx-auto text-center hover:bg-white/8 transition-colors duration-300 glow-border">
-              <div className="inline-flex items-center gap-2 bg-[#00B9F1]/15 border border-[#00B9F1]/25 text-[#00B9F1] text-xs font-bold px-4 py-2 rounded-full mb-8 uppercase tracking-widest">🎁 Start Free — 7 Days Zero Cost</div>
-              <div className="flex items-end justify-center gap-2 mb-2">
-                <span className="text-white/45 text-2xl font-bold line-through mr-1">₹12,999</span>
-                <span className="text-6xl md:text-7xl font-black text-white">₹8,999</span>
-                <span className="text-white/55 text-xl mb-3">/mo</span>
-              </div>
-              <p className="text-white/60 text-sm mb-10">Billed monthly · Cancel anytime · No lock-in</p>
-              <div className="grid sm:grid-cols-2 gap-3 mb-10 text-left max-w-md mx-auto">
-                {["Unlimited bug fixes","Feature updates","Performance optimization","SEO improvements","Security monitoring","Monthly progress reports","Priority developer support","Uptime monitoring"].map((f) => (
-                  <div key={f} className="flex items-center gap-2.5 text-white/75 text-sm">
-                    <CheckCircle2 className="h-4 w-4 text-[#00B9F1] flex-shrink-0" />{f}
-                  </div>
-                ))}
-              </div>
-              <Button size="lg" className="bg-gradient-to-r from-[#002E6E] to-[#00B9F1] hover:from-[#001f4d] hover:to-[#0099cc] text-white font-bold px-12 h-[52px] text-base shadow-[0_0_30px_rgba(0,185,241,0.3)] hover:shadow-[0_0_50px_rgba(0,185,241,0.5)] transition-all duration-300 magnetic-btn w-full sm:w-auto" asChild>
-                <Link to="/contact">Start Now <ArrowRight className="ml-2 h-5 w-5" /></Link>
-              </Button>
-              <p className="text-white/55 text-xs mt-4">No credit card required · Cancel with zero charges</p>
-            </div>
-          </AnimatedSection>
-        </div>
-      </section>
+      {/* Reviews */}
+      <ReviewsSection />
 
+      {/* Our Work */}
+      <OurWorkPreview />
 
     </div>
   );

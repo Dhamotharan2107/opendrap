@@ -60,7 +60,6 @@ export const Navbar: React.FC = () => {
             <Link
               to="/"
               className="flex items-center space-x-3 group"
-              aria-label={`${COMPANY_INFO.name} Home`}
             >
               <div className="relative">
                                 <img
@@ -127,8 +126,8 @@ export const Navbar: React.FC = () => {
                 }}
                 asChild
               >
-                <Link to="/contact">
-                  <Sparkles className="h-3.5 w-3.5 mr-1.5" />
+                <Link to="/contact" aria-label="Get Started — contact OPENDRAP">
+                  <Sparkles className="h-3.5 w-3.5 mr-1.5" aria-hidden="true" />
                   Get Started
                 </Link>
               </Button>
@@ -181,8 +180,8 @@ export const Navbar: React.FC = () => {
                 style={{ background: "linear-gradient(135deg, #1E90FF, #00FFC6)" }}
                 asChild
               >
-                <Link to="/contact" onClick={closeMobileMenu}>
-                  <Sparkles className="h-4 w-4 mr-2" />
+                <Link to="/contact" onClick={closeMobileMenu} aria-label="Start Free Trial — contact OPENDRAP">
+                  <Sparkles className="h-4 w-4 mr-2" aria-hidden="true" />
                   Start Free Trial
                 </Link>
               </Button>

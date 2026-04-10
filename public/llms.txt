@@ -1,0 +1,29 @@
+# OPENDRAP — llms.txt
+# https://llmstxt.org
+
+> OPENDRAP is a WhatsApp automation and web solutions platform based in Chennai, India.
+> We help businesses deploy chatbots, automate workflows, and build websites.
+
+## About
+- Company: OPENDRAP
+- Founded: 2024
+- Location: Chennai, Tamil Nadu, India
+- Website: https://opendrap.website
+- Contact: info@opendrap.website
+
+## Services
+- WhatsApp chatbot deployment for customer support and order handling
+- Website development, audits, and maintenance (7-day free trial)
+- Mobile app development for iOS and Android
+- Workflow and business process automation
+- Multi-channel chatbot platform
+
+## Pricing
+- 7-day free trial (no credit card required)
+- ₹8,999/month after trial — includes maintenance, automation, and support
+
+## Key Pages
+- Home: https://opendrap.website/
+- Products: https://opendrap.website/products
+- Contact: https://opendrap.website/contact
+- Sitemap: https://opendrap.website/sitemap.xml

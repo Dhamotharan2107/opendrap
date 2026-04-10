@@ -11,6 +11,7 @@ import { PrivacyPolicy } from "./pages/PrivacyPolicy";
 import { TermsOfService } from "./pages/TermsOfService";
 import { About } from "./pages/About";
 import { Team } from "./pages/Team";
+import { OurWork } from "./pages/OurWork";
 import { CookiePolicy } from "./pages/CookiePolicy";
 
 export const router = createBrowserRouter([
@@ -26,6 +27,7 @@ export const router = createBrowserRouter([
       { path: "developer", Component: Developer },
       { path: "submit-review", Component: SubmitReview },
       { path: "about", Component: About },
+      { path: "our-work", Component: OurWork },
       { path: "team", Component: Team },
       { path: "privacy-policy", Component: PrivacyPolicy },
       { path: "terms-of-service", Component: TermsOfService },
