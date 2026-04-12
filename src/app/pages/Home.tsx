@@ -15,11 +15,12 @@ import { AnimatedSection, useInView } from "../../components/common/AnimatedSect
    Page data
 ────────────────────────────────────────── */
 const features = [
-  { id: "whatsapp-ai", icon: MessageSquare, title: "WhatsApp Chatbot", description: "Put a smart chatbot on WhatsApp that answers questions, takes orders, and supports customers around the clock — no staff needed.", badge: "Most Popular", color: "from-[#25D366] to-[#128C7E]" },
-  { id: "website-dev", icon: Globe, title: "Website Development", description: "Fast, modern, SEO-ready websites. We audit and fix your current site at no charge during the 7-day trial.", badge: "7-Day Trial", color: "from-blue-500 to-blue-700" },
-  { id: "mobile-apps", icon: Smartphone, title: "Mobile App Development", description: "iOS and Android apps built for real users. We focus on speed, usability, and results that matter to your customers.", color: "from-orange-500 to-orange-600" },
-  { id: "chatbot", icon: Bot, title: "Chatbot Platform", description: "Smart chatbots for your website, app, and social pages. Capture leads and help visitors 24/7 without extra staff.", color: "from-[#002E6E] to-[#004fa3]" },
-  { id: "automation", icon: Zap, title: "Workflow Automation", description: "Cut out repetitive tasks with automated workflows. Your team saves time and your operations run smoother.", color: "from-yellow-500 to-amber-600" },
+  { id: "whatfy",      icon: MessageSquare, title: "Whatfy — WhatsApp Agents", description: "Run your shop, invoicing, and health reminders entirely through WhatsApp. Three intelligent agents, one platform, zero complexity.", badge: "Live", color: "from-[#25D366] to-[#075E54]" },
+  { id: "whatsapp-ai", icon: Bot,            title: "WhatsApp Chatbot",         description: "Put a smart chatbot on WhatsApp that answers questions, takes orders, and supports customers around the clock — no staff needed.", badge: "Most Popular", color: "from-[#00B9F1] to-[#002E6E]" },
+  { id: "website-dev", icon: Globe,          title: "Website Development",      description: "Fast, modern, SEO-ready websites. We audit and fix your current site at no charge during the 7-day trial.", badge: "7-Day Trial", color: "from-blue-500 to-blue-700" },
+  { id: "mobile-apps", icon: Smartphone,     title: "Mobile App Development",   description: "iOS and Android apps built for real users. We focus on speed, usability, and results that matter to your customers.", color: "from-orange-500 to-orange-600" },
+  { id: "chatbot",     icon: Bot,            title: "Chatbot Platform",          description: "Smart chatbots for your website, app, and social pages. Capture leads and help visitors 24/7 without extra staff.", color: "from-[#002E6E] to-[#004fa3]" },
+  { id: "automation", icon: Zap,            title: "Workflow Automation",       description: "Cut out repetitive tasks with automated workflows. Your team saves time and your operations run smoother.", color: "from-yellow-500 to-amber-600" },
 ];
 
 const steps = [
@@ -699,7 +700,7 @@ export function Home() {
         <div className="flex animate-marquee whitespace-nowrap">
           {[...Array(2)].map((_, k) => (
             <span key={k} className="inline-flex items-center shrink-0">
-              {["WhatsApp AI Agent","Business Automation","AI Chatbot Platform","Website Development","Mobile App Dev","CRM & Analytics","Workflow Management","24/7 Support","7-Day Free Trial","SEO Optimization","Security Audits"].map((item, i) => (
+              {["Whatfy WhatsApp Agents","WhatsApp Automation","Business Automation","Chatbot Platform","Website Development","Mobile App Dev","CRM & Analytics","Workflow Management","24/7 Support","7-Day Free Trial","SEO Optimization","Security Audits"].map((item, i) => (
                 <span key={`${k}-${i}`} className="inline-flex items-center gap-3 px-8 text-sm text-white/65 font-medium">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#00B9F1]/60 flex-shrink-0" />
                   {item}

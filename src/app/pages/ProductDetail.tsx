@@ -8,7 +8,11 @@ import {
   Clock,
   Users,
   TrendingUp,
-  Zap
+  Zap,
+  ShoppingCart,
+  Receipt,
+  HeartPulse,
+  ExternalLink,
 } from "lucide-react";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 
@@ -16,6 +20,26 @@ export function ProductDetail() {
   const { productId } = useParams();
 
   const productData: Record<string, any> = {
+    "whatfy": {
+      title: "Whatfy",
+      subtitle: "Run Your Entire Business Through WhatsApp",
+      description: "Whatfy deploys intelligent WhatsApp agents that automate your shop, invoicing, and health reminders. No app downloads, no complex setup — just WhatsApp.",
+      image: "",
+      features: [
+        { title: "Shop Agent", description: "Track inventory in real time, get low-stock alerts, and manage orders — all through WhatsApp messages." },
+        { title: "Invoice Agent", description: "Auto-generate professional invoices and send them as images directly to customers via WhatsApp." },
+        { title: "Health Agent", description: "Send medication reminders and health alerts to patients on schedule, automatically." },
+        { title: "Multi-Agent Dashboard", description: "Manage all your agents, view logs, and configure flows from one unified dashboard." },
+        { title: "Instant Notifications", description: "Get real-time WhatsApp alerts for low stock, new orders, and missed reminders." },
+        { title: "Easy Onboarding", description: "Register, connect your WhatsApp number, and your agents are live in minutes." },
+      ],
+      useCases: [
+        { title: "Retail & Inventory", description: "Shop owners track stock levels and receive reorder alerts without leaving WhatsApp." },
+        { title: "Freelancers & SMBs", description: "Auto-send invoices to clients the moment a job is completed." },
+        { title: "Clinics & Pharmacies", description: "Send daily medication reminders to patients to improve adherence." },
+        { title: "Field Teams", description: "Agents notify field staff about order updates and delivery confirmations instantly." },
+      ],
+    },
     "whatsapp-ai": {
       title: "WhatsApp AI Agent",
       subtitle: "Transform Customer Service on WhatsApp",
@@ -189,6 +213,7 @@ export function ProductDetail() {
 
   const externalUrls: Record<string, string> = {
     "cloud-manager": "https://cloudmanager.opendrap.website",
+    "whatfy": "https://whatfy.opendrap.website",
   };
   const externalUrl = externalUrls[productId ?? ""];
 
@@ -292,6 +317,62 @@ export function ProductDetail() {
                       { label: "Chats/day", value: "12K+", color: "#25D366" },
                       { label: "Resolved",  value: "98%",  color: "#00FFC6" },
                       { label: "Avg Reply", value: "0.8s", color: "#f59e0b" },
+                    ].map((s) => (
+                      <div key={s.label} className="px-4 py-3 text-center" style={{ borderColor: "rgba(255,255,255,0.06)" }}>
+                        <div className="font-black text-sm" style={{ color: s.color }}>{s.value}</div>
+                        <div className="text-white/50 text-[10px] mt-0.5">{s.label}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : productId === "whatfy" ? (
+                /* Whatfy — 3-agent mockup */
+                <div className="rounded-2xl overflow-hidden" style={{ background: "#0d1526", border: "1px solid rgba(37,211,102,0.2)" }}>
+                  {/* Header */}
+                  <div className="flex items-center gap-3 px-5 py-4" style={{ background: "linear-gradient(90deg,rgba(37,211,102,0.12),rgba(7,94,84,0.1))", borderBottom: "1px solid rgba(37,211,102,0.15)" }}>
+                    <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#25D366] to-[#075E54] flex items-center justify-center shadow-lg">
+                      <MessageSquare className="h-5 w-5 text-white" />
+                    </div>
+                    <div className="flex-1">
+                      <div className="text-white font-bold text-sm">Whatfy Agent Platform</div>
+                      <div className="flex items-center gap-1.5 mt-0.5">
+                        <span className="w-1.5 h-1.5 bg-[#25D366] rounded-full animate-pulse" />
+                        <span className="text-[11px]" style={{ color: "rgba(74,222,128,0.7)" }}>3 agents active</span>
+                      </div>
+                    </div>
+                    <span className="text-[#25D366] text-xs font-black bg-[#25D366]/10 border border-[#25D366]/20 px-2.5 py-1 rounded-full">Live</span>
+                  </div>
+                  {/* Agent cards */}
+                  <div className="px-5 py-5 space-y-3" style={{ background: "rgba(0,0,0,0.25)" }}>
+                    {[
+                      { emoji: "🛒", label: "Shop Agent",    msg: "⚠️ Low stock: Rice (5 kg left). Reorder now?",          color: "rgba(251,191,36,0.18)",  border: "rgba(251,191,36,0.3)" },
+                      { emoji: "🧾", label: "Invoice Agent", msg: "✅ Invoice #1042 sent to Ravi Kumar via WhatsApp.",      color: "rgba(37,211,102,0.15)",  border: "rgba(37,211,102,0.25)" },
+                      { emoji: "💊", label: "Health Agent",  msg: "💊 Reminder sent: Metformin 500mg — 8 PM dose.",        color: "rgba(99,102,241,0.18)",  border: "rgba(99,102,241,0.3)" },
+                    ].map((a) => (
+                      <div key={a.label} className="rounded-2xl px-4 py-3" style={{ background: a.color, border: `1px solid ${a.border}` }}>
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="text-base">{a.emoji}</span>
+                          <span className="text-white text-xs font-bold">{a.label}</span>
+                        </div>
+                        <p className="text-white/80 text-xs leading-relaxed">{a.msg}</p>
+                      </div>
+                    ))}
+                    {/* Typing */}
+                    <div className="flex gap-2 items-end">
+                      <div className="w-6 h-6 rounded-full bg-[#25D366] flex items-center justify-center flex-shrink-0 text-white text-[9px] font-black">W</div>
+                      <div className="rounded-2xl px-4 py-3 flex items-center gap-1.5" style={{ background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.1)" }}>
+                        <span className="w-2 h-2 rounded-full bg-[#25D366]/70 typing-dot-1" />
+                        <span className="w-2 h-2 rounded-full bg-[#25D366]/70 typing-dot-2" />
+                        <span className="w-2 h-2 rounded-full bg-[#25D366]/70 typing-dot-3" />
+                      </div>
+                    </div>
+                  </div>
+                  {/* Stats */}
+                  <div className="grid grid-cols-3 divide-x border-t" style={{ borderColor: "rgba(37,211,102,0.1)", background: "rgba(0,0,0,0.3)" }}>
+                    {[
+                      { label: "Agents",   value: "3",    color: "#25D366" },
+                      { label: "Messages", value: "Auto", color: "#00FFC6" },
+                      { label: "Setup",    value: "5 min", color: "#f59e0b" },
                     ].map((s) => (
                       <div key={s.label} className="px-4 py-3 text-center" style={{ borderColor: "rgba(255,255,255,0.06)" }}>
                         <div className="font-black text-sm" style={{ color: s.color }}>{s.value}</div>
@@ -410,6 +491,83 @@ export function ProductDetail() {
           </div>
         </div>
       </section>
+
+      {/* Whatfy Spotlight */}
+      {productId === "whatfy" && (
+        <section className="py-24 relative overflow-hidden" style={{ background: `linear-gradient(135deg, ${S2}, ${BG})` }}>
+          <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "radial-gradient(circle, rgba(37,211,102,0.05) 1px, transparent 1px)", backgroundSize: "28px 28px" }} />
+          <div className="absolute top-0 right-0 w-96 h-96 rounded-full blur-3xl pointer-events-none" style={{ background: "rgba(37,211,102,0.07)" }} />
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-14">
+              <Badge className="mb-4 text-sm px-4 py-1.5 border font-semibold" style={{ background: "rgba(37,211,102,0.1)", color: "#25D366", borderColor: "rgba(37,211,102,0.25)" }}>✨ Now Live</Badge>
+              <h2 className="text-4xl md:text-5xl font-black mb-4 tracking-tight text-white">
+                Meet{" "}
+                <span style={{ background: "linear-gradient(90deg, #25D366, #00FFC6)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Whatfy</span>
+              </h2>
+              <p className="text-xl max-w-2xl mx-auto" style={{ color: "#B0B0B0" }}>Three powerful WhatsApp agents — Shop, Invoice, and Health — running your business on autopilot.</p>
+            </div>
+            <div className="grid md:grid-cols-2 gap-10 items-center">
+              <div className="space-y-4">
+                {[
+                  { emoji: "🛒", title: "Shop Agent",    desc: "Track inventory, get low-stock alerts, and manage orders entirely through WhatsApp." },
+                  { emoji: "🧾", title: "Invoice Agent", desc: "Auto-generate professional invoices and send them as images to customers instantly." },
+                  { emoji: "💊", title: "Health Agent",  desc: "Schedule and send medication reminders and health alerts to patients automatically." },
+                  { emoji: "📊", title: "Unified Dashboard", desc: "Monitor all agents, view message logs, and configure flows from one place." },
+                  { emoji: "⚡", title: "5-Minute Setup",  desc: "Register, connect your WhatsApp number, and your agents are live immediately." },
+                ].map((item) => (
+                  <div key={item.title} className="flex gap-4 p-4 rounded-2xl transition-all duration-200 hover:-translate-x-1" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(37,211,102,0.1)" }}>
+                    <span className="text-xl flex-shrink-0 mt-0.5">{item.emoji}</span>
+                    <div>
+                      <div className="font-semibold text-sm mb-0.5 text-white">{item.title}</div>
+                      <div className="text-xs leading-relaxed" style={{ color: "#B0B0B0" }}>{item.desc}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {/* Dashboard mockup */}
+              <div className="rounded-3xl p-6 shadow-2xl" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(37,211,102,0.2)", boxShadow: "0 0 60px rgba(37,211,102,0.08)" }}>
+                <div className="flex items-center gap-2 mb-5">
+                  <div className="w-3 h-3 rounded-full bg-red-500/70" />
+                  <div className="w-3 h-3 rounded-full bg-yellow-500/70" />
+                  <div className="w-3 h-3 rounded-full bg-green-500/70" />
+                  <span className="ml-3 text-xs font-mono" style={{ color: "#B0B0B0" }}>Whatfy — Agent Dashboard</span>
+                </div>
+                <div className="space-y-3">
+                  {[
+                    { emoji: "🛒", agent: "Shop Agent",    status: "Active",  stat: "12 orders today",      statusColor: "#25D366" },
+                    { emoji: "🧾", agent: "Invoice Agent", status: "Active",  stat: "8 invoices sent",       statusColor: "#25D366" },
+                    { emoji: "💊", agent: "Health Agent",  status: "Active",  stat: "34 reminders sent",     statusColor: "#25D366" },
+                  ].map((row) => (
+                    <div key={row.agent} className="flex items-center justify-between px-4 py-3 rounded-xl" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)" }}>
+                      <div className="flex items-center gap-3">
+                        <span className="text-lg">{row.emoji}</span>
+                        <div>
+                          <div className="text-xs font-semibold text-white">{row.agent}</div>
+                          <div className="text-[10px]" style={{ color: "#B0B0B0" }}>{row.stat}</div>
+                        </div>
+                      </div>
+                      <span className="text-[10px] font-bold px-2 py-1 rounded-full" style={{ background: "rgba(37,211,102,0.15)", color: row.statusColor }}>{row.status}</span>
+                    </div>
+                  ))}
+                  <div className="px-4 py-3 rounded-xl" style={{ background: "rgba(251,191,36,0.08)", border: "1px solid rgba(251,191,36,0.2)" }}>
+                    <div className="flex items-center gap-2">
+                      <span>⚠️</span>
+                      <span className="text-xs text-white/80">Low stock alert: <span className="text-yellow-400 font-semibold">Rice (5 kg left)</span></span>
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-5 text-center">
+                  <a href="https://whatfy.opendrap.website" target="_blank" rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-bold transition-all duration-200 hover:opacity-90"
+                    style={{ background: "linear-gradient(135deg,#25D366,#075E54)", color: "#fff" }}>
+                    Visit Whatfy <ExternalLink className="h-4 w-4" />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* CloudManager Spotlight */}
       {productId === "cloud-manager" && (

@@ -4,7 +4,8 @@ import { Badge } from "../components/ui/badge";
 import {
   MessageSquare, Globe, Smartphone, Bot, Zap,
   ArrowRight, Workflow, Database, CheckCircle2, ChevronRight,
-  Cloud, Mail, FileText, Image, HardDrive, FolderOpen
+  Cloud, Mail, FileText, Image, HardDrive,
+  ShoppingCart, Receipt, HeartPulse,
 } from "lucide-react";
 
 function useInView(threshold = 0.12) {
@@ -35,6 +36,18 @@ function AnimatedSection({ children, className = "", delay = "" }: { children: R
 const BTN = "inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200";
 
 const products = [
+  {
+    id: "whatfy",
+    icon: MessageSquare,
+    title: "Whatfy — WhatsApp Agent Platform",
+    description: "Run your entire business through WhatsApp. Whatfy deploys intelligent agents for shop inventory, invoice generation, and health reminders — all automated.",
+    features: ["Shop Agent: inventory & orders", "Invoice Agent: auto-generate & send", "Health Agent: medication reminders", "Multi-agent dashboard"],
+    gradient: "from-[#25D366] to-[#075E54]",
+    glow: "rgba(37,211,102,0.35)",
+    badge: "Live",
+    subIcons: [ShoppingCart, Receipt, HeartPulse],
+    externalUrl: "https://whatfy.opendrap.website",
+  },
   {
     id: "whatsapp-ai",
     icon: MessageSquare,
